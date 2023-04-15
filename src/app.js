@@ -1,11 +1,12 @@
 import { page, render } from './lib.js';
 import { getUserData } from './util.js';
+import { editorPage } from './views/editor/editor.js'
 
 const root = document.getElementById('content');
 
-// page(decorateCtx);
+page(decorateCtx);
 
-// page('/', homePage);
+page('/', editorPage);
 // page('/login', loginPage);
 // page('/register', registerPage);
 // page('/catalog', catalogPage);
@@ -14,13 +15,13 @@ const root = document.getElementById('content');
 // page('/edit/:id', editPage);
 
 setNav();
-// page.start();
+page.start();
 
-// function decorateCtx(ctx, next) {
-// 	ctx.render = content => render(content, root);
-// 	ctx.setNav = setNav;
-// 	next();
-// }
+function decorateCtx(ctx, next) {
+	ctx.render = content => render(content, root);
+	ctx.setNav = setNav;
+	next();
+}
 
 function setNav() {
 	const userData = getUserData();
@@ -39,5 +40,5 @@ function setNav() {
 // 	page.redirect('/');
 // }
 
-import * as api from './api/data.js';
-window.api = api;
+// import * as api from './api/data.js';
+// window.api = api;
