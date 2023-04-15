@@ -1,9 +1,13 @@
 import { html, render } from '../../lib.js';
 
-const editQuestionTemplate = (data, index) => html`<div class="layout">
+const editorTemplate = (data, index, onSave, onCancel) => html`<div class="layout">
 		<div class="question-control">
-			<button class="input submit action"><i class="fas fa-check-double"></i> Save</button>
-			<button class="input submit action"><i class="fas fa-times"></i> Cancel</button>
+			<button @click=${onSave} class="input submit action">
+				<i class="fas fa-check-double"></i> Save
+			</button>
+			<button @click=${onCancel} class="input submit action">
+				<i class="fas fa-times"></i> Cancel
+			</button>
 		</div>
 		<h3>Question ${index}</h3>
 	</div>
@@ -42,11 +46,15 @@ const radioEdit = (questionIndex, answerIndex, value, checked) => html`<div clas
 	</button>
 </div>`;
 
-const viewTemplate = (data, index) => html`
+const viewTemplate = (data, index, onEdit, onDelete) => html`
 	<div class="layout">
 		<div class="question-control">
-			<button class="input submit action"><i class="fas fa-edit"></i> Edit</button>
-			<button class="input submit action"><i class="fas fa-trash-alt"></i> Delete</button>
+			<button @click=${onEdit} class="input submit action">
+				<i class="fas fa-edit"></i> Edit
+			</button>
+			<button @click=${onDelete} class="input submit action">
+				<i class="fas fa-trash-alt"></i> Delete
+			</button>
 		</div>
 		<h3>Question ${index}</h3>
 	</div>
@@ -65,15 +73,39 @@ const radioView = (value, checked) => html`<div class="editor-input">
 	<span class="q-saved">${value}</span>
 </div>`;
 
-export function createQuestion(question, index, editActive) {
+/* <div class="loading-overlay working"></div> */
+
+export function createQuestion(question, index) {
 	const element = document.createElement('article');
 	element.className = 'editor-question';
 
-	if (editActive) {
-		render(editQuestionTemplate(question, index), element);
-	} else {
-		render(viewTemplate(question, index), element);
-	}
+	showView();
 
 	return element;
+
+	function onEdit() {
+		showEditor();
+	}
+
+	async function onDelete() {
+		const confirmed = confirm('Are you sure you want to delete this question?');
+		if (confirmed) {
+			element.remove();
+		}
+	}
+
+	async function onSave() {
+		console.log('saved');
+	}
+
+	function onCancel() {
+		showView();
+	}
+
+	function showView() {
+		render(viewTemplate(question, index, onEdit, onDelete), element);
+	}
+	function showEditor() {
+		render(editorTemplate(question, index, onSave, onCancel), element);
+	}
 }
