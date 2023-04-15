@@ -1,4 +1,6 @@
 import { html, render } from '../../lib.js';
+import { createAnswerList } from './answer.js';
+import { formHandler } from '../../util.js';
 
 const editorTemplate = (data, index, onSave, onCancel) => html`<div class="layout">
 		<div class="question-control">
@@ -18,33 +20,8 @@ const editorTemplate = (data, index, onSave, onCancel) => html`<div class="layou
 			placeholder="Enter question"
 			.value=${data.text}></textarea>
 
-		${data.answers.map((a, answerIndex) =>
-			radioEdit(index, answerIndex, a, data.correctIndex == answerIndex)
-		)}
-		<div class="editor-input">
-			<button class="input submit action">
-				<i class="fas fa-plus-circle"></i>
-				Add answer
-			</button>
-		</div>
+		${createAnswerList(data.answers, index, data.correctIndex)}
 	</form>`;
-
-const radioEdit = (questionIndex, answerIndex, value, checked) => html`<div class="editor-input">
-	<label class="radio">
-		<input
-			class="input"
-			type="radio"
-			name=${`question-${questionIndex}`}
-			value=${answerIndex}
-			?checked=${checked} />
-		<i class="fas fa-check-circle"></i>
-	</label>
-
-	<input class="input" type="text" name=${`answer-${answerIndex}`} .value=${value} />
-	<button class="input submit action">
-		<i class="fas fa-trash-alt"></i>
-	</button>
-</div>`;
 
 const viewTemplate = (data, index, onEdit, onDelete) => html`
 	<div class="layout">
@@ -95,7 +72,12 @@ export function createQuestion(question, index) {
 	}
 
 	async function onSave() {
-		console.log('saved');
+		const formData = new FormData(element.querySelector('form'));
+		const data = [...formData.entries()].reduce(
+			(a, [k, v]) => Object.assign(a, { [k]: v }),
+			{}
+		);
+		console.log(data);
 	}
 
 	function onCancel() {
