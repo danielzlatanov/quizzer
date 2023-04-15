@@ -1,97 +1,98 @@
 .editor-label {
-    display: block;
-    margin: 8px 0;
+	display: block;
+	margin: 8px 0;
 }
 
 .label-col {
-    display: block;
-    float: left;
-    width: 100px;
+	display: block;
+	float: left;
+	width: 100px;
+	color: #ffffff;
 }
 
 .i-small {
-    width: 200px;
+	width: 200px;
 }
 
 .i-med {
-    width: 300px;
+	width: 300px;
 }
 
 .i-large {
-    width: 400px;
+	width: 400px;
 }
 
 .editor-question {
-    background-color: white;
-    margin: 32px 0;
-    border-left: 4px solid #000b29;
-    padding: 16px 32px;
-    position: relative;
+	background-color: rgb(0, 0, 0);
+	margin: 32px 0;
+	border-left: 4px solid #ffffff;
+	padding: 16px 32px;
+	position: relative;
 }
 
 .question-control {
-    float: right;
+	float: right;
 }
 
 .editor-input {
-    position: relative;
-    margin: 8px 0;
+	position: relative;
+	margin: 8px 0;
 }
 
 .editor-text {
-    display: block;
-    width: 100%;
-    height: 50px;
-    resize: vertical;
+	display: block;
+	width: 100%;
+	height: 50px;
+	resize: vertical;
 }
 
-.editor-input [type="text"] {
-    width: 720px;
+.editor-input [type='text'] {
+	width: 95%;
 }
 
 .input:disabled {
-    background-color: hsl(224, 5%, 80%);
-    border-color: hsl(224, 5%, 60%);
+	background-color: hsl(224, 5%, 80%);
+	border-color: hsl(224, 5%, 60%);
 }
 
 /* checkboxes */
 
-.radio>input {
-    display: none;
+.radio > input {
+	display: none;
 }
 
-.radio>input+*::before {
-    display: inline-block;
-    vertical-align: bottom;
-    width: 1em;
-    height: 1em;
-    margin-right: 0.3rem;
-    border-radius: 50%;
-    border-style: solid;
-    border-width: 0.1rem;
-    border-color: #000b29;
+.radio > input + *::before {
+	display: inline-block;
+	vertical-align: bottom;
+	width: 1em;
+	height: 1em;
+	margin-right: 0.3rem;
+	border-radius: 50%;
+	border-style: solid;
+	border-width: 0.1rem;
+	/* border-color: #000b29; */
 }
 
-.radio>input:not(:checked):not(:disabled):hover+*::before {
-    cursor: pointer;
-    color: #d70026;
-    border-color: #d70026;
-    background: radial-gradient(#d70026 0%, #d70026 40%, transparent 50%, transparent);
+.radio > input:not(:checked):not(:disabled):hover + *::before {
+	cursor: pointer;
+	/* border-color: #11c131; */
+	background: radial-gradient(#11c131 0%, #11c131 40%, transparent 50%, transparent);
+	transition: 0.5s;
 }
 
-.radio>input:not(:checked)+*::before {
-    content: "";
-    background: white;
-    border-color: #000b29;
+.radio > input:not(:checked) + *::before {
+	content: '';
+	background: white;
+	border-color: #000000;
 }
 
-.radio>input:checked+* {
-    color: #000b29;
-    border: none;
+.radio > input:checked + * {
+	color: #11c131;
+	border: none;
 }
 
-.radio>input:disabled+*::before {
-    color: #666666;
-    border-color: #666666;
-    cursor: auto;
+.radio > input:disabled + *::before {
+	color: #666666;
+	border-color: #666666;
+	cursor: auto;
 }

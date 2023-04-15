@@ -1,41 +1,43 @@
 .profile h2 {
-    margin: 16px 0;
-    border-bottom: 3px solid #000b29;
+	margin: 16px 0;
+	border-bottom: 3px solid #000b29;
 }
 
 .profile p {
-    margin: 8px 0;
+	margin: 8px 0;
 }
 
 .profile-info {
-    display: inline-block;
-    width: 100px;
-    font-weight: 700;
+	display: inline-block;
+	width: 100px;
+	font-weight: 700;
 }
 
 .quiz-results {
-    width: 100%;
+	width: 100%;
 }
 
 .results-row:hover {
-    background-color: #f8f5f2;
+	background-color: #f8f5f2;
+	transition: 0.5s;
+	color: #111111;
 }
 
 .cell-1 {
-    width: 120px;
+	width: 120px;
 }
 
 .cell-2 {
-    font-weight: 700;
+	font-weight: 700;
 }
 
 .cell-3 {
-    width: 75px;
-    text-align: center;
-    font-weight: 700;
+	width: 75px;
+	text-align: center;
+	font-weight: 700;
 }
 
 .cell-4 {
-    width: 200px;
-    text-align: center;
+	width: 200px;
+	text-align: center;
 }

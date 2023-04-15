@@ -5,18 +5,14 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Quizzer</title>
-		<link
-			rel="stylesheet"
-			href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-			integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
-			crossorigin="anonymous" />
+		<script src="https://kit.fontawesome.com/8a3442c427.js" crossorigin="anonymous"></script>
 		<link rel="stylesheet" href="/static/site.css" />
 		<script src="/src/app.js" type="module"></script>
 	</head>
 
 	<body>
-		<div id="container">
-			<header id="titlebar">
+		<div id="container" class="gr">
+			<header id="titlebar" class="gr">
 				<nav>
 					<a class="logotype" href="/"
 						><i class="fas fa-question-circle"></i
@@ -26,13 +22,13 @@
 						<a class="nav-link" href="/browse">Browse</a>
 						<div id="user-nav">
 							<a class="nav-link" href="/create">Create</a>
+							<a id="logoutBtn" class="nav-link" href="javascript:void(0)">Logout</a>
 							<a class="nav-link profile-link" href="#"
 								><i class="fas fa-user-circle"></i
 							></a>
-							<a id="logoutBtn" class="nav-link" href="javascript:void(0)">Logout</a>
 						</div>
 						<div id="guest-nav">
-							<a class="nav-link" href="/login">Sign in</a>
+							<a class="nav-link" href="/login">Login</a>
 						</div>
 					</div>
 				</nav>
@@ -52,19 +48,18 @@
 							</header>
 							<form class="pad-med centered">
 								<label class="block centered"
-									>Username:
+									>username
 									<input class="auth-input input" type="text" name="username"
 								/></label>
 								<label class="block centered"
-									>Email:
-									<input class="auth-input input" type="text" name="email"
+									>email <input class="auth-input input" type="text" name="email"
 								/></label>
 								<label class="block centered"
-									>Password:
+									>password
 									<input class="auth-input input" type="password" name="password"
 								/></label>
 								<label class="block centered"
-									>Repeat:
+									>repeat
 									<input class="auth-input input" type="password" name="repass"
 								/></label>
 								<input
@@ -74,7 +69,7 @@
 							</form>
 							<footer class="tab-footer">
 								Already have an account?
-								<a class="invert" href="#">Sign in here</a>.
+								<a class="invert" href="#">Sign In</a>
 							</footer>
 						</div>
 					</div>
@@ -89,18 +84,17 @@
 							</header>
 							<form class="pad-med centered">
 								<label class="block centered"
-									>Email:
-									<input class="auth-input input" type="text" name="email"
+									>email <input class="auth-input input" type="text" name="email"
 								/></label>
 								<label class="block centered"
-									>Password:
+									>password
 									<input class="auth-input input" type="password" name="password"
 								/></label>
 								<input class="block action cta" type="submit" value="Sign In" />
 							</form>
 							<footer class="tab-footer">
 								Don't have an account?
-								<a class="invert" href="#">Create one here</a>.
+								<a class="invert" href="#">Sign Up</a>
 							</footer>
 						</div>
 					</div>
@@ -108,36 +102,37 @@
 
 				<section id="welcome">
 					<div class="hero layout">
-						<div class="splash right-col"><i class="fas fa-clipboard-list"></i></div>
 						<div class="glass welcome">
-							<h1>Welcome to Quiz Fever!</h1>
+							<h1>Welcome to Quizzer</h1>
 							<p>
-								Home to 157 quizes in 12 topics. <a href="#">Browse all quizes</a>.
+								157 quizzes in 13 topics
+								<br />
+								<a href="#">Browse quizzes</a>
 							</p>
-							<a class="action cta" href="#">Sign in to create a quiz</a>
+							<a class="action cta" href="#">Login to create a quiz</a>
 						</div>
 					</div>
 
-					<div class="pad-large alt-page">
+					<div class="pad-large alt-page gr">
 						<h2>Our most recent quiz:</h2>
 
 						<article class="preview layout">
 							<div class="right-col">
-								<a class="action cta" href="#">View Quiz</a>
+								<a class="action cta" href="#">View</a>
 							</div>
 							<div class="left-col">
 								<h3>Extensible Markup Language</h3>
 								<span class="quiz-topic">Topic: Languages</span>
 								<div class="quiz-meta">
-									<span>15 questions</span>
+									<span><span id="descCount">15</span> questions</span>
 									<span>|</span>
-									<span>Taken 54 times</span>
+									<span>Taken <span id="descCount">15</span> times</span>
 								</div>
 							</div>
 						</article>
 
 						<div>
-							<a class="action cta" href="#">Browse all quizes</a>
+							<a class="action cta" href="#">Browse all quizzes</a>
 						</div>
 					</div>
 				</section>
@@ -155,12 +150,12 @@
 							<input
 								class="input submit action"
 								type="submit"
-								value="Filter Quizes" />
+								value="Filter Quizzes" />
 						</form>
-						<h1>All quizes</h1>
+						<h1>All quizzes</h1>
 					</header>
 
-					<div class="pad-large alt-page async">
+					<div class="pad-large alt-page async gr">
 						<div class="sk-cube-grid">
 							<div class="sk-cube sk-cube1"></div>
 							<div class="sk-cube sk-cube2"></div>
@@ -174,10 +169,10 @@
 						</div>
 					</div>
 
-					<div class="pad-large alt-page">
+					<div class="pad-large alt-page gr">
 						<article class="preview layout">
 							<div class="right-col">
-								<a class="action cta" href="#">View Quiz</a>
+								<a class="action cta" href="#">View</a>
 							</div>
 							<div class="left-col">
 								<h3>
@@ -187,39 +182,51 @@
 								</h3>
 								<span class="quiz-topic">Topic: Languages</span>
 								<div class="quiz-meta">
-									<span>15 questions</span>
+									<span><span id="descCount">15</span> questions</span>
 									<span>|</span>
-									<span>Taken 54 times</span>
+									<span
+										>Taken
+										<span id="descCount">15</span>
+										times</span
+									>
 								</div>
 							</div>
 						</article>
 
 						<article class="preview layout">
 							<div class="right-col">
-								<a class="action cta" href="#">View Quiz</a>
+								<a class="action cta" href="#">View</a>
 							</div>
 							<div class="left-col">
 								<h3><a class="quiz-title-link" href="#">RISC Architecture</a></h3>
 								<span class="quiz-topic">Topic: Hardware</span>
 								<div class="quiz-meta">
-									<span>10 questions</span>
+									<span><span id="descCount">15</span> questions</span>
 									<span>|</span>
-									<span>Taken 107 times</span>
+									<span
+										>Taken
+										<span id="descCount">15</span>
+										times</span
+									>
 								</div>
 							</div>
 						</article>
 
 						<article class="preview layout">
 							<div class="right-col">
-								<a class="action cta" href="#">View Quiz</a>
+								<a class="action cta" href="#">View</a>
 							</div>
 							<div class="left-col">
 								<h3><a class="quiz-title-link" href="#">Webpack</a></h3>
 								<span class="quiz-topic">Topic: Tools and Software</span>
 								<div class="quiz-meta">
-									<span>17 questions</span>
+									<span><span id="descCount">15</span> questions</span>
 									<span>|</span>
-									<span>Taken 189 times</span>
+									<span
+										>Taken
+										<span id="descCount">15</span>
+										times</span
+									>
 								</div>
 							</div>
 						</article>
@@ -227,16 +234,16 @@
 				</section>
 
 				<section id="details">
-					<div class="pad-large alt-page">
+					<div class="pad-large alt-page gr">
 						<article class="details">
 							<h1>Extensible Markup Language</h1>
 							<span class="quiz-topic"
-								>A quiz by <a href="#">Peter</a> on the topic of Languages</span
+								>A quiz by <a href="#">Peter</a> on "Languages"</span
 							>
 							<div class="quiz-meta">
-								<span>15 Questions</span>
+								<span><span id="descCount">15</span> Questions</span>
 								<span>|</span>
-								<span>Taken 189 times</span>
+								<span>Taken <span id="descCount">187</span> times</span>
 							</div>
 							<p class="quiz-desc">
 								Test your knowledge of XML by completing this medium-difficulty
@@ -246,7 +253,7 @@
 							</p>
 
 							<div>
-								<a class="cta action" href="#">Begin Quiz</a>
+								<a class="cta action" href="#">Start</a>
 							</div>
 						</article>
 					</div>
@@ -256,7 +263,7 @@
 					<header class="pad-large">
 						<h1>Extensible Markup Language: Question 1 / 15</h1>
 						<nav class="layout q-control">
-							<span class="block">Question index</span>
+							<span class="block">Questions:</span>
 							<a class="q-index q-current" href="#"></a>
 							<a class="q-index q-answered" href="#"></a>
 							<a class="q-index q-answered" href="#"></a>
@@ -274,7 +281,7 @@
 							<a class="q-index" href="#"></a>
 						</nav>
 					</header>
-					<div class="pad-large alt-page">
+					<div class="pad-large alt-page gr">
 						<article class="question">
 							<p class="q-text">
 								This is the first question. Veniam unde beatae est ab quisquam quos
@@ -302,7 +309,7 @@
 							</div>
 
 							<nav class="q-control">
-								<span class="block">12 questions remaining</span>
+								<span class="block q-remaining">12 questions remaining</span>
 								<a class="action" href="#"
 									><i class="fas fa-arrow-left"></i> Previous</a
 								>
@@ -331,15 +338,15 @@
 							<div class="summary">12/15 correct answers</div>
 
 							<a class="action cta" href="#"
-								><i class="fas fa-sync-alt"></i> Retake Quiz</a
+								><i class="fas fa-sync-alt"></i> Retake</a
 							>
 							<a class="action cta" href="#"
-								><i class="fas fa-clipboard-list"></i> See Details</a
+								><i class="fas fa-clipboard-list"></i> Details</a
 							>
 						</article>
 					</div>
 
-					<div class="pad-large alt-page">
+					<div class="pad-large alt-page gr">
 						<article class="preview">
 							<span class="s-correct">
 								Question 1
@@ -380,7 +387,7 @@
 							</div>
 
 							<div>
-								<p>
+								<p id="q-result">
 									This is the first question. Veniam unde beatae est ab quisquam
 									quos officia, eius harum accusamus adipisci?
 								</p>
@@ -398,7 +405,7 @@
 										<strong>Correct answer</strong>
 									</span>
 								</div>
-								<div class="s-answer">
+								<div class="s-answer ans-normal">
 									<span> This is answer 3 </span>
 								</div>
 							</div>
@@ -411,7 +418,7 @@
 						<h1>New quiz</h1>
 					</header>
 
-					<div class="pad-large alt-page">
+					<div class="pad-large alt-page gr">
 						<form>
 							<label class="editor-label layout">
 								<span class="label-col">Title:</span>
@@ -434,7 +441,7 @@
 						<h2>Questions</h2>
 					</header>
 
-					<div class="pad-large alt-page">
+					<div class="pad-large alt-page gr">
 						<article class="editor-question">
 							<div class="layout">
 								<div class="question-control">
@@ -595,7 +602,7 @@
 								<h3>Question 2</h3>
 							</div>
 							<form>
-								<p class="editor-input">This is the second question.</p>
+								<p class="editor-input q-saved">This is the second question.</p>
 								<div class="editor-input">
 									<label class="radio">
 										<input
@@ -606,7 +613,7 @@
 											disabled />
 										<i class="fas fa-check-circle"></i>
 									</label>
-									<span>Answer 0</span>
+									<span class="q-saved">Answer 0</span>
 								</div>
 								<div class="editor-input">
 									<label class="radio">
@@ -618,7 +625,7 @@
 											disabled />
 										<i class="fas fa-check-circle"></i>
 									</label>
-									<span>Answer 1</span>
+									<span class="q-saved">Answer 1</span>
 								</div>
 								<div class="editor-input">
 									<label class="radio">
@@ -630,7 +637,7 @@
 											disabled />
 										<i class="fas fa-check-circle"></i>
 									</label>
-									<span>Answer 2</span>
+									<span class="q-saved">Answer 2</span>
 								</div>
 							</form>
 						</article>
@@ -653,7 +660,7 @@
 
 					<div class="hero pad-large">
 						<article class="glass pad-large profile">
-							<h2>Profile Details</h2>
+							<h2>Personal Info</h2>
 							<p>
 								<span class="profile-info">Username:</span>
 								Peter
@@ -662,7 +669,7 @@
 								<span class="profile-info">Email:</span>
 								peter@mail.cx
 							</p>
-							<h2>Your Quiz Results</h2>
+							<h2>Your Quizzes</h2>
 							<table class="quiz-results">
 								<tbody>
 									<tr class="results-row">
@@ -677,13 +684,13 @@
 					</div>
 
 					<header class="pad-large">
-						<h2>Quizes created by you</h2>
+						<h2>Quizzes created by you</h2>
 					</header>
 
-					<div class="pad-large alt-page">
+					<div class="pad-large alt-page gr">
 						<article class="preview layout">
 							<div class="right-col">
-								<a class="action cta" href="#">View Quiz</a>
+								<a class="action cta" href="#">View</a>
 								<a class="action cta" href="#"><i class="fas fa-edit"></i></a>
 								<a class="action cta" href="#"><i class="fas fa-trash-alt"></i></a>
 							</div>
@@ -695,16 +702,16 @@
 								</h3>
 								<span class="quiz-topic">Topic: Languages</span>
 								<div class="quiz-meta">
-									<span>15 questions</span>
+									<span><span id="descCount">15</span> questions</span>
 									<span>|</span>
-									<span>Taken 54 times</span>
+									<span>Taken <span id="descCount">15</span> times</span>
 								</div>
 							</div>
 						</article>
 
 						<article class="preview layout">
 							<div class="right-col">
-								<a class="action cta" href="#">View Quiz</a>
+								<a class="action cta" href="#">View</a>
 								<a class="action cta" href="#"><i class="fas fa-edit"></i></a>
 								<a class="action cta" href="#"><i class="fas fa-trash-alt"></i></a>
 							</div>
@@ -712,9 +719,9 @@
 								<h3><a class="quiz-title-link" href="#">RISC Architecture</a></h3>
 								<span class="quiz-topic">Topic: Hardware</span>
 								<div class="quiz-meta">
-									<span>10 questions</span>
+									<span><span id="descCount">15</span> questions</span>
 									<span>|</span>
-									<span>Taken 107 times</span>
+									<span>Taken <span id="descCount">15</span> times</span>
 								</div>
 							</div>
 						</article>

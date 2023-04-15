@@ -1,41 +1,57 @@
 .night {
-    background-color: #000b29;
-    color: white;
+	background-color: #000b29;
+	color: white;
 }
 
 .red {
-    background-color: #d70026;
+	background-color: #d70026;
 }
 
 .pearl {
-    background-color: #f8f5f2;
+	background-color: #f8f5f2;
 }
 
 .flash {
-    background-color: #edb83d;
+	background-color: #edb83d;
 }
 
 body {
-    background-color: #dddddd;
+	background-color: #111;
 }
 
-h1, h2, h3 {
-    color: #000b29;
-    font-size: 24px;
+h1,
+h2,
+h3 {
+	color: #ffffff;
+	font-size: 24px;
 }
 
 a {
-    color: #000b29;
+	color: #e1bf00;
+	text-decoration: none;
 }
 
 a:hover {
-    color: #edb83d;
+	color: #628900;
+	transition: 0.5s;
 }
 
 .invert {
-    color: #f8f5f2;
+	color: #e1bf00;
+}
+
+.center {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.gr {
+	/* background: linear-gradient(rgba(146, 25, 25, 0.785), rgba(43, 2, 2, 0)); */
+	background: linear-gradient(rgba(191, 35, 11, 0.439), rgba(172, 57, 0, 0.2), rgba(24, 42, 0, 0));
 }
 
 header {
-    background-color: white;
+	background-color: rgb(0, 0, 0);
 }
