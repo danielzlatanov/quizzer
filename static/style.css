@@ -8,7 +8,7 @@
 }
 
 .pearl {
-	background-color: #f8f5f2;
+	background-color: #e9e9e9;
 }
 
 .flash {
@@ -22,7 +22,7 @@ body {
 h1,
 h2,
 h3 {
-	color: #ffffff;
+	color: #e9e9e9;
 	font-size: 24px;
 }
 
@@ -37,7 +37,7 @@ a:hover {
 }
 
 .invert {
-	color: #e1bf00;
+	color: #ff8000;
 }
 
 .center {
@@ -48,8 +48,7 @@ a:hover {
 }
 
 .gr {
-	/* background: linear-gradient(rgba(146, 25, 25, 0.785), rgba(43, 2, 2, 0)); */
-	background: linear-gradient(rgba(191, 35, 11, 0.439), rgba(172, 57, 0, 0.2), rgba(24, 42, 0, 0));
+	background: rgb(28 54 81);
 }
 
 header {

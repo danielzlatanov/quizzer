@@ -1,7 +1,7 @@
 .preview {
 	background-color: rgb(0, 0, 0);
 	margin: 32px 0;
-	border-left: 8px solid #ffffff;
+	border-left: 8px solid #e9e9e9;
 	padding: 16px 32px;
 	position: relative;
 }
@@ -11,13 +11,8 @@
 	transition: 0.5s;
 }
 
-/* .preview p {
-	color: #ffffff;
-} */
-
 .quiz-title-link {
 	text-decoration: none;
-	color: #ffffff;
 }
 
 .quiz-title-link:hover {
@@ -26,12 +21,13 @@
 }
 
 .quiz-topic {
-	color: #ffffff;
+	color: #e9e9e9;
 	display: block;
+	margin-top: 20px;
 }
 
 .quiz-meta {
-	color: #ffffff;
+	color: #e9e9e9;
 }
 
 .browse-filter {
@@ -40,8 +36,9 @@
 
 .input {
 	font-size: 18px;
-	border: 1px solid #000b29;
+	border: 2px solid #000000;
 	padding: 2px 4px;
+	background: #e9e9e9;
 }
 
 .submit {
@@ -65,10 +62,14 @@
 .quiz-desc {
 	text-align: left;
 	margin-top: 32px;
-	color: #ffffff;
+	color: #e9e9e9;
 }
 
 #descCount {
+	color: #e1bf00;
+}
+
+#qCount {
 	color: #e1bf00;
 }
 
@@ -82,26 +83,26 @@
 	font-size: 24px;
 	margin-bottom: 32px;
 	line-height: 1.5;
-	color: #ffffff;
+	color: #e9e9e9;
 }
 
 #q-result {
 	margin-top: 20px;
 	padding: 5px;
-	color: #ffffff;
+	color: #e9e9e9;
 }
 
 .ans-normal {
-	color: #ffffff;
+	color: #e9e9e9;
 }
 
 .q-remaining {
-	color: #ffffff;
+	color: #e9e9e9;
 	margin-bottom: 15px;
 }
 
 .q-saved {
-	color: #ffffff;
+	color: #e9e9e9;
 }
 
 .q-control {
@@ -113,7 +114,7 @@
 	display: block;
 	margin: 16px 0;
 	cursor: pointer;
-	color: #ffffff;
+	color: #e9e9e9;
 }
 
 .q-index {
@@ -125,7 +126,7 @@
 	margin: 2px;
 	font-size: 10px;
 	line-height: 10px;
-	background-color: #f8f5f2;
+	background-color: #e9e9e9;
 	position: relative;
 }
 
@@ -137,7 +138,7 @@
 	bottom: 2px;
 	left: 2px;
 	right: 2px;
-	background-color: #ff8c00;
+	background-color: rgb(20, 109, 204);
 }
 
 .q-answered {

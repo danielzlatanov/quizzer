@@ -9,19 +9,19 @@
 }
 
 a.tab-item {
-	background-color: #ffffff;
+	background-color: #e9e9e9;
 	color: #000000;
 	text-decoration: none;
 }
 
 a.tab-item:hover {
 	background-color: #11c131;
-	color: #f8f5f2;
+	color: #e9e9e9;
 	transition: 0.5s;
 }
 
 .tab-footer {
-	background-color: #ffffff;
+	background-color: #e9e9e9;
 	color: #000000;
 	padding: 8px;
 	font-size: 22px;

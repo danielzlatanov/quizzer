@@ -6,7 +6,6 @@
 	right: 0;
 }
 
-/* overlays */
 
 .working {
 	background: linear-gradient(
@@ -49,9 +48,7 @@
 		background: rgba(56, 236, 131, 0);
 	}
 }
-/* END overlays */
 
-/* cube loader */
 .sk-cube-grid {
 	width: 40px;
 	height: 40px;
@@ -139,9 +136,7 @@
 		transform: scale3D(0, 0, 1);
 	}
 }
-/* END cube loader */
 
-/* line loader */
 .spinner {
 	display: inline-block;
 	width: 50px;
@@ -212,4 +207,3 @@
 		-webkit-transform: scaleY(1);
 	}
 }
-/* END line loader */
