@@ -31,7 +31,8 @@ export async function getQuizById(id) {
 }
 
 export async function getQuizzes() {
-	return await api.get(endpoints.quizClass);
+	const response = await api.get(endpoints.quizClass);
+	return response.results;
 }
 
 export async function createQuiz(quiz) {
@@ -53,7 +54,10 @@ export async function getQuestionById(id) {
 }
 
 export async function getQuestionsByQuizId(id) {
-	const query = JSON.stringify({ quiz: createPointer('Quiz', id) });
+	const query = JSON.stringify({
+		quiz: createPointer('Quiz', id),
+		owner: createPointer('_User', ownerId),
+	});
 	const response = await api.get(endpoints.questionClass + '?where=' + encodeURIComponent(query));
 	return response.results;
 }

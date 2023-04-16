@@ -63,11 +63,14 @@ export function createList(quizId, questions, updateCount) {
 			if (questionId) {
 				await deleteQuestion(questionId);
 				updateCount(-1);
-      }
-      
+			}
+
 			questions.splice(index, 1);
 			currentQuestions.splice(index, 1);
 			update();
+		} else {
+			const loader = document.querySelector('.loading-overlay.working');
+			loader.remove();
 		}
 	}
 }

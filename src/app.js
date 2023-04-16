@@ -1,6 +1,7 @@
 import { page, render } from './lib.js';
 import { getUserData } from './util.js';
 import { editorPage } from './views/editor/editor.js'
+import { browsePage } from './views/browse.js';
 
 const root = document.getElementById('content');
 
@@ -8,9 +9,9 @@ page(decorateCtx);
 
 page('/create', editorPage);
 page('/edit/:id', editorPage);
+page('/browse', browsePage);
 // page('/login', loginPage);
 // page('/register', registerPage);
-// page('/catalog', catalogPage);
 // page('/create', createPage);
 // page('/details/:id', detailsPage);
 
@@ -39,6 +40,3 @@ function setNav() {
 // 	setNav();
 // 	page.redirect('/');
 // }
-
-import * as api from './api/data.js';
-window.api = api;
