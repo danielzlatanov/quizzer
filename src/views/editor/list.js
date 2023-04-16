@@ -18,8 +18,8 @@ export const questionList = (questions, addQuestion) => html`
 	</article>
 `;
 
-export function createList(questions) {
-	const currentQuestions = questions.map(q => createQuestion(q, removeQuestion));
+export function createList(quizId, questions) {
+	const currentQuestions = questions.map(q => createQuestion(quizId, q, removeQuestion));
 	const element = document.createElement('div');
 	element.className = 'pad-large alt-page gr';
 	update();
@@ -28,7 +28,7 @@ export function createList(questions) {
 
 	function addQuestion() {
 		currentQuestions.push(
-			createQuestion(
+			createQuestion(quizId,
 				{
 					text: '',
 					answers: [],

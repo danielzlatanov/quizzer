@@ -1,5 +1,7 @@
 import { html, render } from '../../lib.js';
 import { createAnswerList } from './answer.js';
+import { createQuestion as apiCreateQ, editQuestion as apiUpdateQ } from '../../api/data.js';
+import { createOverlay } from '../common/loader.js';
 
 const editorTemplate = (data, index, onSave, onCancel) => html`<div class="layout">
 		<div class="question-control">
@@ -49,7 +51,7 @@ const radioView = (value, checked) => html`<div class="editor-input">
 	<span class="q-saved">${value}</span>
 </div>`;
 
-export function createQuestion(question, removeQuestion) {
+export function createQuestion(quizId, question, removeQuestion) {
 	let currentQuestion = copyQuestion(question);
 	let index = 0;
 	let editorActive = false;
@@ -58,7 +60,8 @@ export function createQuestion(question, removeQuestion) {
 
 	showView();
 
-	return function update(newIndex) {
+	return update;
+	function update(newIndex) {
 		index = newIndex;
 		if (editorActive) {
 			showEditor();
@@ -66,7 +69,7 @@ export function createQuestion(question, removeQuestion) {
 			showView();
 		}
 		return element;
-	};
+	}
 
 	function onEdit() {
 		editorActive = true;
@@ -75,11 +78,42 @@ export function createQuestion(question, removeQuestion) {
 
 	async function onSave() {
 		const formData = new FormData(element.querySelector('form'));
-		const data = [...formData.entries()].reduce(
-			(a, [k, v]) => Object.assign(a, { [k]: v }),
-			{}
-		);
-		console.log(data);
+		const data = [...formData.entries()];
+
+		const answers = data
+			.filter(([k, v]) => k.includes('answer-'))
+			.reduce((a, [k, v]) => {
+				const index = Number(k.split('-')[1]);
+				a[index] = v;
+				return a;
+			}, []);
+
+		const body = {
+			text: formData.get('text'),
+			correctIndex: Number(data.find(([k, v]) => k.includes('question-'))[1]),
+			answers,
+		};
+
+		const loader = createOverlay();
+		try {
+			element.appendChild(loader);
+
+			if (question.objectId) {
+				await apiUpdateQ(question.objectId, body);
+			} else {
+				const res = await apiCreateQ(quizId, body);
+				question.objectId = res.objectId;
+			}
+
+			Object.assign(question, body);
+			currentQuestion = copyQuestion(question);
+			editorActive = false;
+			update(index);
+		} catch (err) {
+			console.error(err.message);
+		} finally {
+			loader.remove();
+		}
 	}
 
 	function onCancel() {

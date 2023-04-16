@@ -7,7 +7,7 @@ const editorTemplate = (quiz, quizEditor) => html`<section id="editor">
 		<h1>${quiz ? 'Edit Your Quiz' : 'New Quiz'}</h1>
 	</header>
 
-	${quizEditor} ${quiz ? createList(quiz.questions) : ''}
+	${quizEditor} ${quiz ? createList(quiz.objectId, quiz.questions) : ''}
 </section>`;
 
 const quizEditor = (quiz, onSave, animation) => html`<form @submit=${onSave}>
@@ -49,7 +49,7 @@ const quizEditor = (quiz, onSave, animation) => html`<form @submit=${onSave}>
 			?disabled=${animation} />
 	</form>
 
-	${animation ? html`<div class="loading-overlay working"></div>` : ''}`;
+	${animation ? html`` : ''}`;
 
 function createQuizEditor(quiz, onSave) {
 	const editor = document.createElement('div');
