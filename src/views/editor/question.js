@@ -11,7 +11,7 @@ const editorTemplate = (data, index, onSave, onCancel) => html`<div class="layou
 				<i class="fas fa-times"></i> Cancel
 			</button>
 		</div>
-		<h3>Question ${index}</h3>
+		<h3>Question ${index + 1}</h3>
 	</div>
 	<form>
 		<textarea
@@ -29,11 +29,11 @@ const viewTemplate = (data, index, onEdit, onDelete) => html`
 			<button @click=${onEdit} class="input submit action">
 				<i class="fas fa-edit"></i> Edit
 			</button>
-			<button @click=${onDelete} class="input submit action">
+			<button @click=${()=> onDelete(index)} class="input submit action">
 				<i class="fas fa-trash-alt"></i> Delete
 			</button>
 		</div>
-		<h3>Question ${index}</h3>
+		<h3>Question ${index + 1}</h3>
 	</div>
 	<div>
 		<p class="editor-input q-saved">${data.text}</p>
@@ -52,23 +52,27 @@ const radioView = (value, checked) => html`<div class="editor-input">
 
 /* <div class="loading-overlay working"></div> */
 
-export function createQuestion(question, index) {
+export function createQuestion(question, removeQuestion) {
+	let index = 0;
+	let editorActive = false;
 	const element = document.createElement('article');
 	element.className = 'editor-question';
 
 	showView();
 
-	return element;
+	return function update(newIndex) {
+		index = newIndex;
+		if (editorActive) {
+			showEditor();
+		} else {
+			showView();
+		}
+		return element;
+	};
 
 	function onEdit() {
+		editorActive = true;
 		showEditor();
-	}
-
-	async function onDelete() {
-		const confirmed = confirm('Are you sure you want to delete this question?');
-		if (confirmed) {
-			element.remove();
-		}
 	}
 
 	async function onSave() {
@@ -81,11 +85,12 @@ export function createQuestion(question, index) {
 	}
 
 	function onCancel() {
+		editorActive = false;
 		showView();
 	}
 
 	function showView() {
-		render(viewTemplate(question, index, onEdit, onDelete), element);
+		render(viewTemplate(question, index, onEdit, removeQuestion), element);
 	}
 	function showEditor() {
 		render(editorTemplate(question, index, onSave, onCancel), element);
