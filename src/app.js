@@ -1,18 +1,20 @@
 import { page, render } from './lib.js';
 import { getUserData } from './util.js';
-import { editorPage } from './views/editor/editor.js'
+import { editorPage } from './views/editor/editor.js';
 import { browsePage } from './views/browse.js';
+import { loginPage, registerPage } from './views/auth.js';
+import { logout } from './api/data.js';
 
 const root = document.getElementById('content');
+document.getElementById('logoutBtn').addEventListener('click', onLogout);
 
 page(decorateCtx);
 
 page('/create', editorPage);
 page('/edit/:id', editorPage);
 page('/browse', browsePage);
-// page('/login', loginPage);
-// page('/register', registerPage);
-// page('/create', createPage);
+page('/login', loginPage);
+page('/register', registerPage);
 // page('/details/:id', detailsPage);
 
 setNav();
@@ -35,8 +37,8 @@ function setNav() {
 	}
 }
 
-// function onLogout() {
-// 	logout();
-// 	setNav();
-// 	page.redirect('/');
-// }
+async function onLogout() {
+	await logout();
+	setNav();
+	page.redirect('/');
+}

@@ -30,7 +30,8 @@ const quizEditor = (quiz, onSave, animation) => html`<form @submit=${onSave}>
 				?disabled=${animation}>
 				<option value="0">* Select category</option>
 				${Object.entries(topics).map(
-					([k, v]) => html`<option ?selected=${quiz.topic == k} value=${k}>${v}</option>`
+					([k, v]) =>
+						html`<option ?selected=${quiz && quiz.topic == k} value=${k}>${v}</option>`
 				)}
 			</select>
 		</label>
