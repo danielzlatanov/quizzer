@@ -1,7 +1,7 @@
 import { html } from '../../lib.js';
-import { createQuestion } from './question.js';
+import { createList } from './list.js';
 
-const editorTemplate = (questions, addQuestion) => html`<section id="editor">
+const editorTemplate = questions => html`<section id="editor">
 	<header class="pad-large">
 		<h1>New quiz</h1>
 	</header>
@@ -29,20 +29,8 @@ const editorTemplate = (questions, addQuestion) => html`<section id="editor">
 		<h2>Questions</h2>
 	</header>
 
-	${questionList(questions, addQuestion)}
+	${createList(questions)}
 </section>`;
-
-const questionList = (questions, addQuestion) => html`<div class="pad-large alt-page gr">
-	${questions}
-	<article class="editor-question">
-		<div class="editor-input">
-			<button @click=${addQuestion} class="input submit action">
-				<i class="fas fa-plus-circle"></i>
-				Add question
-			</button>
-		</div>
-	</article>
-</div>`;
 
 const questions = [
 	{ text: 'is this 1st?', answers: ['y', 'n', 'perhaps'], correctIndex: 0 },
@@ -50,37 +38,5 @@ const questions = [
 ];
 
 export async function editorPage(ctx) {
-	const currentQuestions = questions.map(q => createQuestion(q, removeQuestion));
-	update();
-
-	function addQuestion() {
-		currentQuestions.push(
-			createQuestion(
-				{
-					text: '',
-					answers: [],
-					correctIndex: 0,
-				},
-				removeQuestion
-			)
-		);
-		update();
-	}
-
-	function update() {
-		ctx.render(
-			editorTemplate(
-				currentQuestions.map((c, i) => c(i)),
-				addQuestion
-			)
-		);
-	}
-
-	function removeQuestion(index) {
-		const confirmed = confirm('Are you sure you want to delete this question?');
-		if (confirmed) {
-			currentQuestions.splice(index, 1);
-			update();
-		}
-	}
+	ctx.render(editorTemplate(questions));
 }
