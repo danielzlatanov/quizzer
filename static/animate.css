@@ -17,7 +17,7 @@
 		rgba(68, 236, 56, 0.15)
 	);
 	background-size: 400% 100%;
-	animation: loading-pulse 2s infinite;
+	animation: loading-pulse 1s infinite;
 }
 
 .updated {

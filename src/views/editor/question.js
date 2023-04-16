@@ -49,8 +49,6 @@ const radioView = (value, checked) => html`<div class="editor-input">
 	<span class="q-saved">${value}</span>
 </div>`;
 
-/* <div class="loading-overlay working"></div> */
-
 export function createQuestion(question, removeQuestion) {
 	let currentQuestion = copyQuestion(question);
 	let index = 0;
