@@ -61,7 +61,7 @@ export async function editorPage(ctx) {
 					answers: [],
 					correctIndex: 0,
 				},
-				removeQuestion.bind(null, currentQuestions.length)
+				removeQuestion
 			)
 		);
 		update();

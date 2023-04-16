@@ -17,18 +17,19 @@ const radioEdit = (questionIndex, answerIndex, value, checked) => html`<div clas
 	</button>
 </div>`;
 
-export function createAnswerList(answers, questionIndex, correctIndex) {
-	const currentAnswers = answers.slice();
+export function createAnswerList(data, questionIndex) {
+	const answers = data.answers;
 	const element = document.createElement('div');
 	element.addEventListener('click', onDelete);
+	element.addEventListener('change', onChange);
 
 	update();
 	return element;
 
 	function update() {
 		render(
-			html`${currentAnswers.map((a, answerIndex) =>
-					radioEdit(questionIndex, answerIndex, a, correctIndex == answerIndex)
+			html`${answers.map((a, answerIndex) =>
+					radioEdit(questionIndex, answerIndex, a, data.correctIndex == answerIndex)
 				)}
 				<div class="editor-input">
 					<button @click=${addAnswer} class="input submit action">
@@ -40,9 +41,18 @@ export function createAnswerList(answers, questionIndex, correctIndex) {
 		);
 	}
 
+	function onChange(e) {
+		if (e.target.getAttribute('type') == 'text') {
+			const index = Number(e.target.name.split('-')[1]);
+			answers[index] = e.target.value || '';
+		} else {
+			data.correctIndex = Number(e.target.value);
+		}
+	}
+
 	function addAnswer(e) {
 		e.preventDefault();
-		currentAnswers.push('');
+		answers.push('');
 		update();
 	}
 
@@ -56,7 +66,7 @@ export function createAnswerList(answers, questionIndex, correctIndex) {
 
 		if (index != undefined) {
 			e.preventDefault();
-			currentAnswers.splice(index, 1);
+			answers.splice(index, 1);
 			update();
 		}
 	}
