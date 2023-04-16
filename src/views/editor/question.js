@@ -1,6 +1,5 @@
 import { html, render } from '../../lib.js';
 import { createAnswerList } from './answer.js';
-import { formHandler } from '../../util.js';
 
 const editorTemplate = (data, index, onSave, onCancel) => html`<div class="layout">
 		<div class="question-control">

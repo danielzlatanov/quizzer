@@ -134,6 +134,11 @@ footer {
 	padding: 16px 32px;
 }
 
+.q-pad-med {
+	padding: 25px 36px;
+
+}
+
 .pad-large {
 	padding: 32px 64px;
 }

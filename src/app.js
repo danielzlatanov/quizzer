@@ -6,13 +6,13 @@ const root = document.getElementById('content');
 
 page(decorateCtx);
 
-page('/', editorPage);
+page('/create', editorPage);
+page('/edit/:id', editorPage);
 // page('/login', loginPage);
 // page('/register', registerPage);
 // page('/catalog', catalogPage);
 // page('/create', createPage);
 // page('/details/:id', detailsPage);
-// page('/edit/:id', editPage);
 
 setNav();
 page.start();
@@ -40,5 +40,5 @@ function setNav() {
 // 	page.redirect('/');
 // }
 
-// import * as api from './api/data.js';
-// window.api = api;
+import * as api from './api/data.js';
+window.api = api;

@@ -2,7 +2,12 @@ import { html, render } from '../../lib.js';
 import { createQuestion } from './question.js';
 
 export const questionList = (questions, addQuestion) => html`
+	<header class="q-pad-med">
+		<h2>Questions</h2>
+	</header>
+
 	${questions}
+
 	<article class="editor-question">
 		<div class="editor-input">
 			<button @click=${addQuestion} class="input submit action">
