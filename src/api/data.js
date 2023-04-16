@@ -53,7 +53,7 @@ export async function getQuestionById(id) {
 	return await api.get(endpoints.questionClass + '/' + id + '?include=owner');
 }
 
-export async function getQuestionsByQuizId(id) {
+export async function getQuestionsByQuizId(id, ownerId) {
 	const query = JSON.stringify({
 		quiz: createPointer('Quiz', id),
 		owner: createPointer('_User', ownerId),

@@ -1,5 +1,5 @@
 import { getQuizzes } from '../api/data.js';
-import { html, until } from '../lib.js';
+import { topics, html, until } from '../lib.js';
 import { cube } from './common/loader.js';
 
 const browseTemplate = quizzesPromise => html`<section id="browse">
@@ -8,9 +8,7 @@ const browseTemplate = quizzesPromise => html`<section id="browse">
 			<input class="input" type="text" name="query" />
 			<select class="input" name="topic">
 				<option value="all">All Categories</option>
-				<option value="it">Languages</option>
-				<option value="hardware">Hardware</option>
-				<option value="software">Tools and Software</option>
+				${Object.entries(topics).map(([k, v]) => html`<option value=${k}>${v}</option>`)}
 			</select>
 			<input class="input submit action" type="submit" value="Filter Quizzes" />
 		</form>
