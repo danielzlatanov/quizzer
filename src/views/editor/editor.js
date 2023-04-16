@@ -2,12 +2,12 @@ import { editQuiz, createQuiz, getQuestionsByQuizId, getQuizById } from '../../a
 import { html, render } from '../../lib.js';
 import { createList } from './list.js';
 
-const editorTemplate = (quiz, quizEditor) => html`<section id="editor">
+const editorTemplate = (quiz, quizEditor, updateCount) => html`<section id="editor">
 	<header class="pad-large">
 		<h1>${quiz ? 'Edit Your Quiz' : 'New Quiz'}</h1>
 	</header>
 
-	${quizEditor} ${quiz ? createList(quiz.objectId, quiz.questions) : ''}
+	${quizEditor} ${quiz ? createList(quiz.objectId, quiz.questions, updateCount) : ''}
 </section>`;
 
 const quizEditor = (quiz, onSave, animation) => html`<form @submit=${onSave}>
@@ -49,7 +49,7 @@ const quizEditor = (quiz, onSave, animation) => html`<form @submit=${onSave}>
 			?disabled=${animation} />
 	</form>
 
-	${animation ? html`` : ''}`;
+	${animation ? html`<div class="loading-overlay working"></div>` : ''}`;
 
 function createQuizEditor(quiz, onSave) {
 	const editor = document.createElement('div');
@@ -73,7 +73,12 @@ export async function editorPage(ctx) {
 	}
 
 	const { editor, updateEditor } = createQuizEditor(quiz, onSave);
-	ctx.render(editorTemplate(quiz, editor));
+	ctx.render(editorTemplate(quiz, editor, updateCount));
+
+	async function updateCount(change = 0) {
+		const count = questions.length + change;
+		await editQuiz(quizId, { questionCount: count });
+	}
 
 	async function onSave(e) {
 		e.preventDefault();

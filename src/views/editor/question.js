@@ -51,10 +51,10 @@ const radioView = (value, checked) => html`<div class="editor-input">
 	<span class="q-saved">${value}</span>
 </div>`;
 
-export function createQuestion(quizId, question, removeQuestion) {
+export function createQuestion(quizId, question, removeQuestion, updateCount, editOpen) {
 	let currentQuestion = copyQuestion(question);
 	let index = 0;
-	let editorActive = false;
+	let editorActive = editOpen || false;
 	const element = document.createElement('article');
 	element.className = 'editor-question';
 
@@ -102,6 +102,7 @@ export function createQuestion(quizId, question, removeQuestion) {
 				await apiUpdateQ(question.objectId, body);
 			} else {
 				const res = await apiCreateQ(quizId, body);
+				updateCount();
 				question.objectId = res.objectId;
 			}
 
@@ -123,7 +124,12 @@ export function createQuestion(quizId, question, removeQuestion) {
 	}
 
 	function showView() {
-		render(viewTemplate(currentQuestion, index, onEdit, removeQuestion), element);
+		const onDelete = async index => {
+			const loader = createOverlay();
+			element.appendChild(loader);
+			await removeQuestion(index, question.objectId);
+		};
+		render(viewTemplate(currentQuestion, index, onEdit, onDelete), element);
 	}
 	function showEditor() {
 		render(editorTemplate(currentQuestion, index, onSave, onCancel), element);

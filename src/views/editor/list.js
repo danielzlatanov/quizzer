@@ -1,3 +1,4 @@
+import { deleteQuestion } from '../../api/data.js';
 import { html, render } from '../../lib.js';
 import { createQuestion } from './question.js';
 
@@ -18,8 +19,10 @@ export const questionList = (questions, addQuestion) => html`
 	</article>
 `;
 
-export function createList(quizId, questions) {
-	const currentQuestions = questions.map(q => createQuestion(quizId, q, removeQuestion));
+export function createList(quizId, questions, updateCount) {
+	const currentQuestions = questions.map(q =>
+		createQuestion(quizId, q, removeQuestion, updateCount)
+	);
 	const element = document.createElement('div');
 	element.className = 'pad-large alt-page gr';
 	update();
@@ -27,14 +30,18 @@ export function createList(quizId, questions) {
 	return element;
 
 	function addQuestion() {
+		questions.push({ text: '', answers: [], correctIndex: 0 });
 		currentQuestions.push(
-			createQuestion(quizId,
+			createQuestion(
+				quizId,
 				{
 					text: '',
 					answers: [],
 					correctIndex: 0,
 				},
-				removeQuestion
+				removeQuestion,
+				updateCount,
+				true
 			)
 		);
 		update();
@@ -50,9 +57,15 @@ export function createList(quizId, questions) {
 		);
 	}
 
-	function removeQuestion(index) {
+	async function removeQuestion(index, questionId) {
 		const confirmed = confirm('Are you sure you want to delete this question?');
 		if (confirmed) {
+			if (questionId) {
+				await deleteQuestion(questionId);
+				updateCount(-1);
+      }
+      
+			questions.splice(index, 1);
 			currentQuestions.splice(index, 1);
 			update();
 		}
