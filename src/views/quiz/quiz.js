@@ -1,6 +1,7 @@
 import { classMap, html, styleMap } from '../../lib.js';
 
-const quizTemplate = (quiz, questions, answers, currentIndex, onSelect) => html`<section id="quiz">
+const quizTemplate = (quiz, questions, answers, currentIndex, onSelect, startOver) => html`<section
+	id="quiz">
 	<header class="pad-large">
 		<h1>${quiz.title} - Question ${currentIndex + 1} / ${questions.length}</h1>
 		<nav class="layout q-control">
@@ -20,13 +21,30 @@ const quizTemplate = (quiz, questions, answers, currentIndex, onSelect) => html`
 
 			<nav class="q-control">
 				<span class="block q-remaining"
-					><span id="qCount">12</span> questions remaining</span
+					><span id="qCount">${answers.filter(a => a == undefined).length}</span>
+					questions remaining</span
 				>
-				<a class="action" href="#"><i class="fas fa-arrow-left"></i> Previous</a>
-				<a class="action" href="#"><i class="fas fa-sync-alt"></i> Start over</a>
+				${currentIndex > 0
+					? html`<a class="action" href="/quiz/${quiz.objectId}?question=${currentIndex}"
+							><i class="fas fa-arrow-left"></i> Previous</a
+					  >`
+					: ''}
+
+				<a @click=${startOver} class="action" href="javascript:void(0)"
+					><i class="fas fa-sync-alt"></i> Start over</a
+				>
 				<div class="right-col">
-					<a class="action" href="#">Next <i class="fas fa-arrow-right"></i></a>
-					<a class="action" href="#">Submit answers</a>
+					${currentIndex < questions.length - 1
+						? html`<a
+								class="action"
+								href="/quiz/${quiz.objectId}?question=${currentIndex + 2}"
+								>Next <i class="fas fa-arrow-right"></i
+						  ></a>`
+						: ''}
+					${answers.filter(a => a == undefined).length == 0 ||
+					currentIndex == questions.length - 1
+						? html`<a class="action" href="#">Submit answers</a>`
+						: ''}
 				</div>
 			</nav>
 		</article>
@@ -70,7 +88,16 @@ export async function quizPage(ctx) {
 		}
 	}
 
+	function startOver() {
+		const confirmed = confirm('Are you sure you want to start over?');
+		if (confirmed) {
+			const quizId = ctx.quiz.objectId;
+			ctx.clearCache(quizId);
+			ctx.page.redirect('/quiz/' + quizId);
+		}
+	}
+
 	function update() {
-		ctx.render(quizTemplate(ctx.quiz, questions, answers, index, onSelect));
+		ctx.render(quizTemplate(ctx.quiz, questions, answers, index, onSelect, startOver));
 	}
 }

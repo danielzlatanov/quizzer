@@ -35,8 +35,15 @@ async function getQuiz(ctx, next) {
 		cache[quizId].answers = cache[quizId].questions.map(q => undefined);
 	}
 
+	ctx.clearCache = clearCache;
 	ctx.quiz = cache[quizId];
 	next();
+}
+
+function clearCache(quizId) {
+	if (cache[quizId]) {
+		delete cache[quizId];
+	}
 }
 
 function decorateCtx(ctx, next) {
