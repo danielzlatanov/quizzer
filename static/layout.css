@@ -53,22 +53,8 @@ body {
 	transition: 0.5s;
 }
 
-#register,
-#login {
-	width: 60%;
-	display: grid;
-	position: relative;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -10%);
-}
 
 #titlebar nav {
-	/* background: linear-gradient(
-		rgba(0, 17, 62, 0.5),
-		rgba(0, 7, 73, 0.5) 40%,
-		rgba(0, 19, 70, 0.5)
-	); */
 	position: absolute;
 	height: 64px;
 	padding-top: 16px;
@@ -122,7 +108,7 @@ footer {
 
 .layout::after {
 	content: '';
-	display: table;
+	/* display: table; */
 	clear: both;
 }
 

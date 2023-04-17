@@ -8,6 +8,7 @@ export const logout = api.logout;
 const endpoints = {
 	quizClass: '/classes/Quiz',
 	questionClass: '/classes/Question',
+	solutionClass: '/classes/Solution',
 };
 
 function createPointer(name, id) {
@@ -74,4 +75,27 @@ export async function editQuestion(id, question) {
 
 export async function deleteQuestion(id) {
 	return await api.del(endpoints.questionClass + '/' + id);
+}
+
+//! Solution Collection
+export async function getSolutionsByUserId(userId) {
+	const query = JSON.stringify({
+		owner: createPointer('_User', userId),
+	});
+	const response = await api.get(endpoints.solutionClass + '?where=' + encodeURIComponent(query));
+	return response.results;
+}
+
+export async function getSolutionsByQuizId(quizId) {
+	const query = JSON.stringify({
+		quiz: createPointer('Quiz', quizId),
+	});
+	const response = await api.get(endpoints.solutionClass + '?where=' + encodeURIComponent(query));
+	return response.results;
+}
+
+export async function submitSolution(quizId, solution) {
+	const body = setOwner(solution);
+	body.quiz = createPointer('Quiz', quizId);
+	return await api.post(endpoints.solutionClass, body);
 }

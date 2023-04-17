@@ -9,7 +9,7 @@ const loginTemplate = onSubmit => html`<section id="login">
 				<a class="tab-item" href="/register">Register</a>
 			</header>
 			<form @submit=${onSubmit} class="pad-med centered">
-				<label class="block centered"
+				<label class="block centered mrg"
 					>username <input class="auth-input input" type="text" name="username"
 				/></label>
 				<label class="block centered"
@@ -52,7 +52,7 @@ const registerTemplate = onSubmit => html`<section id="register">
 				<h1 class="tab-item active">Register</h1>
 			</header>
 			<form @submit=${onSubmit} class="pad-med centered">
-				<label class="block centered"
+				<label class="block centered mrg"
 					>username <input class="auth-input input" type="text" name="username"
 				/></label>
 				<label class="block centered"

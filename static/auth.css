@@ -32,3 +32,18 @@ a.tab-item:hover {
 	margin: auto;
 	text-align: center;
 }
+
+#login,
+#register {
+	width: 60%;
+	height: 600px;
+	display: grid;
+	position: relative;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, 10%);
+}
+
+.mrg {
+	margin-top: 70px;
+}

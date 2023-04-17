@@ -5,6 +5,9 @@ import { browsePage } from './views/browse.js';
 import { loginPage, registerPage } from './views/auth.js';
 import { logout } from './api/data.js';
 
+import * as api from './api/data.js';
+window.api = api;
+
 const root = document.getElementById('content');
 document.getElementById('logoutBtn').addEventListener('click', onLogout);
 
