@@ -3,9 +3,11 @@ import { getUserData } from './util.js';
 import { editorPage } from './views/editor/editor.js';
 import { browsePage } from './views/browse.js';
 import { loginPage, registerPage } from './views/auth.js';
-import { logout } from './api/data.js';
+import { getQuestionsByQuizId, getQuizById, logout } from './api/data.js';
 import { quizPage } from './views/quiz/quiz.js';
+import { cube } from './views/common/loader.js';
 
+const cache = {};
 const root = document.getElementById('content');
 document.getElementById('logoutBtn').addEventListener('click', onLogout);
 
@@ -16,11 +18,25 @@ page('/edit/:id', editorPage);
 page('/browse', browsePage);
 page('/login', loginPage);
 page('/register', registerPage);
-page('/quiz/:id', quizPage);
+page('/quiz/:id', getQuiz, quizPage);
 // page('/details/:id', detailsPage);
 
 setNav();
 page.start();
+
+async function getQuiz(ctx, next) {
+	const quizId = ctx.params.id;
+
+	if (!cache[quizId]) {
+		ctx.render(cube());
+		cache[quizId] = await getQuizById(quizId);
+		const ownerId = cache[quizId].owner.objectId;
+		cache[quizId].questions = await getQuestionsByQuizId(quizId, ownerId);
+	}
+
+	ctx.quiz = cache[quizId];
+	next();
+}
 
 function decorateCtx(ctx, next) {
 	ctx.render = content => render(content, root);

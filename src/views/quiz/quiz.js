@@ -1,6 +1,4 @@
-import { getQuestionsByQuizId, getQuizById } from '../../api/data.js';
-import { html, until } from '../../lib.js';
-import { cube } from '../common/loader.js';
+import { html } from '../../lib.js';
 
 const quizTemplate = (quiz, questions, currentIndex) => html`<section id="quiz">
 	<header class="pad-large">
@@ -49,15 +47,7 @@ const answerTemplate = (questionIndex, index, text) => html`<label class="q-answ
 </label>`;
 
 export async function quizPage(ctx) {
-	const quizId = ctx.params.id;
 	const index = Number(ctx.querystring.split('=')[1] || 1) - 1;
-	ctx.render(until(loadQuiz(quizId, index), cube()));
-}
-
-async function loadQuiz(quizId, index) {
-	const quiz = await getQuizById(quizId);
-	const ownerId = quiz.owner.objectId;
-	const questions = await getQuestionsByQuizId(quizId, ownerId);
-
-	return quizTemplate(quiz, questions, index);
+	const questions = ctx.quiz.questions;
+	ctx.render(quizTemplate(ctx.quiz, questions, index));
 }
