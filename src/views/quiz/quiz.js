@@ -11,7 +11,7 @@ const quizTemplate = (quiz, questions, currentIndex) => html`<section id="quiz">
 				(q, i) =>
 					html`<a
 						class="q-index q-current q-answered"
-						href="/quiz/${quiz.objectId}?question=${i}"></a>`
+						href="/quiz/${quiz.objectId}?question=${i + 1}"></a>`
 			)}
 		</nav>
 	</header>
@@ -48,15 +48,16 @@ const answerTemplate = (questionIndex, index, text) => html`<label class="q-answ
 	${text}
 </label>`;
 
-async function loadQuiz(quizId) {
+export async function quizPage(ctx) {
+	const quizId = ctx.params.id;
+	const index = Number(ctx.querystring.split('=')[1] || 1) - 1;
+	ctx.render(until(loadQuiz(quizId, index), cube()));
+}
+
+async function loadQuiz(quizId, index) {
 	const quiz = await getQuizById(quizId);
 	const ownerId = quiz.owner.objectId;
 	const questions = await getQuestionsByQuizId(quizId, ownerId);
 
-	return quizTemplate(quiz, questions, 0);
-}
-
-export async function quizPage(ctx) {
-	const quizId = ctx.params.id;
-	ctx.render(until(loadQuiz(quizId), cube()));
+	return quizTemplate(quiz, questions, index);
 }
