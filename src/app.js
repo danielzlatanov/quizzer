@@ -8,6 +8,7 @@ import { quizPage } from './views/quiz/quiz.js';
 import { cube } from './views/common/loader.js';
 import { resultPage } from './views/quiz/result.js';
 import { homePage } from './views/home.js';
+import { detailsPage } from './views/quiz/details.js';
 
 import * as api from './api/data.js';
 window.api = api;
@@ -26,7 +27,7 @@ page('/login', loginPage);
 page('/register', registerPage);
 page('/quiz/:id', getQuiz, quizPage);
 page('/result/:id', getQuiz, resultPage);
-// page('/details/:id', detailsPage);
+page('/details/:id', getQuiz, detailsPage);
 
 setNav();
 page.start();

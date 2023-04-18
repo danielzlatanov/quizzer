@@ -18,11 +18,9 @@ export const quizPreviewTemplate = quiz => html`<article class="preview layout">
 			>
 			<span>|</span>
 			<span
-				>Taken
+				>Solved
 				<span id="descCount">${quiz.taken}</span>
-				time${quiz.taken == 1
-					? ''
-					: 's'}</span
+				time${quiz.taken == 1 ? '' : 's'}</span
 			>
 		</div>
 	</div>

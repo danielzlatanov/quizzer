@@ -32,8 +32,10 @@ export async function getQuizById(id) {
 }
 
 export async function getQuizzes() {
-	const response = await api.get(endpoints.quizClass);
-	return response.results;
+	const quizzes = (await api.get(endpoints.quizClass)).results;
+	const taken = await getSolutionCount(quizzes.map(q => q.objectId));
+	quizzes.forEach(q => (q.taken = taken[q.objectId]));
+	return quizzes;
 }
 
 export async function getMostRecentQuiz() {
@@ -107,4 +109,21 @@ export async function submitSolution(quizId, solution) {
 	const body = setOwner(solution);
 	body.quiz = createPointer('Quiz', quizId);
 	return await api.post(endpoints.solutionClass, body);
+}
+
+export async function getSolutionCount(quizIds) {
+	const query = JSON.stringify({ $or: quizIds.map(id => ({ quiz: createPointer('Quiz', id) })) });
+	const solutions = (
+		await api.get(endpoints.solutionClass + '?where=' + encodeURIComponent(query))
+	).results;
+	const result = solutions.reduce((a, c) => {
+		const id = c.quiz.objectId;
+		if (!a[id]) {
+			a[id] = 0;
+		}
+		a[id]++;
+		return a;
+	}, {});
+
+	return result;
 }

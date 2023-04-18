@@ -10,8 +10,8 @@ const resultTemplate = (quiz, result) => html`<section id="summary">
 
 			<div class="summary">${result.correct}/${result.total} correct answers</div>
 
-			<a class="action cta" href="#"><i class="fas fa-sync-alt"></i> Retake</a>
-			<a class="action cta" href="#"><i class="fas fa-clipboard-list"></i> Details</a>
+			<a class="action cta" href="/quiz/${quiz.objectId}"><i class="fas fa-sync-alt"></i> Retake</a>
+			<a class="action cta" href="/details/${quiz.objectId}"><i class="fas fa-clipboard-list"></i> Details</a>
 		</article>
 	</div>
 

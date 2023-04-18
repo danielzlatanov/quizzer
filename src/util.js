@@ -1,9 +1,9 @@
 export const topics = {
-	it: 'Information Technology',
-	languages: 'Languages',
-	hardware: 'Hardware',
-	software: 'Software',
-	frameworks: 'Frameworks',
+	IT: 'Information Technology',
+	Languages: 'Languages',
+	Hardware: 'Hardware',
+	Software: 'Software',
+	Frameworks: 'Frameworks',
 };
 
 export function setUserData(userData) {
@@ -17,3 +17,4 @@ export function getUserData() {
 export function clearUserData() {
 	localStorage.removeItem('userData');
 }
+

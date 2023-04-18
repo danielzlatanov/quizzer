@@ -65,13 +65,20 @@
 }
 
 .quiz-desc {
-	text-align: left;
+	text-align: center;
 	margin-top: 32px;
+	word-wrap: break-word;
 	color: #e9e9e9;
 }
 
 #descCount {
 	color: #e1bf00;
+}
+
+#no-quizzes {
+	font-size: 24px;
+	color: #e9e9e9;
+	padding-top: 20px;
 }
 
 #qCount {

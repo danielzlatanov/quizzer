@@ -1,5 +1,5 @@
 import { html, until } from '../lib.js';
-import { topics } from '../util.js';
+import { getUserData, topics } from '../util.js';
 import { cube } from './common/loader.js';
 import { getQuizzes, getMostRecentQuiz } from '../api/data.js';
 import { quizPreviewTemplate } from './common/quizPreview.js';
@@ -13,7 +13,9 @@ const homeTemplate = (quizCount, topics) => html`<section id="welcome">
 				<br />
 				<a href="/browse">Browse quizzes</a>
 			</p>
-			<a class="action cta" href="/login">Login to create a quiz</a>
+			${getUserData() == null
+				? html`<a class="action cta" href="/login">Login to create a quiz</a>`
+				: ''}
 		</div>
 	</div>
 
@@ -21,14 +23,14 @@ const homeTemplate = (quizCount, topics) => html`<section id="welcome">
 </section>`;
 
 async function loadRecentQuiz() {
-	const recent = await getMostRecentQuiz();
+  const recent = await getMostRecentQuiz();
 
 	return html`<div class="pad-large alt-page gr">
 		<h2>Our most recent quiz:</h2>
 
 		${recent
 			? quizPreviewTemplate(recent)
-			: html`<p>No quizzes yet. Be the first to create one!</p>`}
+			: html`<p id="no-quizzes">No quizzes yet. Be the first to create one!</p>`}
 
 		<div>
 			<a class="action cta" href="/browse">Browse all quizzes</a>
