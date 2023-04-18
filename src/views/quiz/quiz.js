@@ -1,7 +1,16 @@
+import { submitSolution } from '../../api/data.js';
 import { classMap, html, styleMap } from '../../lib.js';
+import { cube } from '../common/loader.js';
 
-const quizTemplate = (quiz, questions, answers, currentIndex, onSelect, startOver) => html`<section
-	id="quiz">
+const quizTemplate = (
+	quiz,
+	questions,
+	answers,
+	currentIndex,
+	onSelect,
+	startOver,
+	onSubmit
+) => html`<section id="quiz">
 	<header class="pad-large">
 		<h1>${quiz.title} - Question ${currentIndex + 1} / ${questions.length}</h1>
 		<nav class="layout q-control">
@@ -43,7 +52,9 @@ const quizTemplate = (quiz, questions, answers, currentIndex, onSelect, startOve
 						: ''}
 					${answers.filter(a => a == undefined).length == 0 ||
 					currentIndex == questions.length - 1
-						? html`<a class="action" href="#">Submit answers</a>`
+						? html`<a @click=${onSubmit} class="action" href="javascript:void(0)"
+								>Submit answers</a
+						  >`
 						: ''}
 				</div>
 			</nav>
@@ -77,6 +88,7 @@ export async function quizPage(ctx) {
 	const index = Number(ctx.querystring.split('=')[1] || 1) - 1;
 	const questions = ctx.quiz.questions;
 	const answers = ctx.quiz.answers;
+	const quizId = ctx.quiz.objectId;
 	update();
 
 	function onSelect(e) {
@@ -91,13 +103,35 @@ export async function quizPage(ctx) {
 	function startOver() {
 		const confirmed = confirm('Are you sure you want to start over?');
 		if (confirmed) {
-			const quizId = ctx.quiz.objectId;
 			ctx.clearCache(quizId);
 			ctx.page.redirect('/quiz/' + quizId);
 		}
 	}
 
+	async function onSubmit() {
+		const unanswered = answers.filter(a => a == undefined).length;
+		if (unanswered > 0) {
+			const confirmed = confirm(`You have ${unanswered} unanswered questions. Are you sure?`);
+			if (!confirmed) {
+				return;
+			}
+		}
+		let correct = 0;
+		for (let i = 0; i < questions.length; i++) {
+			if (questions[i].correctIndex == answers[i]) {
+				correct++;
+			}
+		}
+		const solution = { correct, total: questions.length };
+
+		ctx.render(cube());
+		await submitSolution(quizId, solution);
+		ctx.page.redirect('/result/' + quizId);
+	}
+
 	function update() {
-		ctx.render(quizTemplate(ctx.quiz, questions, answers, index, onSelect, startOver));
+		ctx.render(
+			quizTemplate(ctx.quiz, questions, answers, index, onSelect, startOver, onSubmit)
+		);
 	}
 }
