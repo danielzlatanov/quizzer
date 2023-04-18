@@ -36,6 +36,15 @@ export async function getQuizzes() {
 	return response.results;
 }
 
+export async function getMostRecentQuiz() {
+	const quiz = (await api.get(endpoints.quizClass + '?order=-createdAt&limit=1')).results[0];
+	if (quiz) {
+		const taken = await getSolutionsByQuizId(quiz.objectId);
+		quiz.taken = taken.length;
+	}
+	return quiz;
+}
+
 export async function createQuiz(quiz) {
 	const body = setOwner(quiz);
 	return await api.post(endpoints.quizClass, body);

@@ -7,6 +7,10 @@ import { getQuestionsByQuizId, getQuizById, logout } from './api/data.js';
 import { quizPage } from './views/quiz/quiz.js';
 import { cube } from './views/common/loader.js';
 import { resultPage } from './views/quiz/result.js';
+import { homePage } from './views/home.js';
+
+import * as api from './api/data.js';
+window.api = api;
 
 const state = {};
 const root = document.getElementById('content');
@@ -14,6 +18,7 @@ document.getElementById('logoutBtn').addEventListener('click', onLogout);
 
 page(decorateCtx);
 
+page('/', homePage);
 page('/create', editorPage);
 page('/edit/:id', editorPage);
 page('/browse', browsePage);

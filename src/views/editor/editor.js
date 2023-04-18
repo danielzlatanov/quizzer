@@ -1,6 +1,6 @@
 import { editQuiz, createQuiz, getQuestionsByQuizId, getQuizById } from '../../api/data.js';
-import { html, render, topics } from '../../lib.js';
-import { getUserData } from '../../util.js';
+import { html, render } from '../../lib.js';
+import { getUserData, topics } from '../../util.js';
 import { createList } from './list.js';
 
 const editorTemplate = (quiz, quizEditor, updateCount) => html`<section id="editor">

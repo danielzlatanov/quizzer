@@ -1,5 +1,6 @@
 import { getQuizzes } from '../api/data.js';
-import { topics, html, until } from '../lib.js';
+import { html, until } from '../lib.js';
+import { topics } from '../util.js';
 import { cube } from './common/loader.js';
 
 const browseTemplate = quizzesPromise => html`<section id="browse">
