@@ -9,7 +9,6 @@
 }
 
 .profile-info {
-	display: inline-block;
 	width: 100px;
 	font-weight: 700;
 }
@@ -17,6 +16,17 @@
 .quiz-results {
 	width: 100%;
 	margin-top: 15px;
+}
+
+#levelInfo{
+	padding-top: 15px;
+	font-style: italic;
+}
+#levelTable, #levelTable tr, #levelTable td{
+	border: 2px solid white;
+	border-spacing: 10px;
+	padding: 20px;
+	/* padding-top: 0; */
 }
 
 .results-row:hover {

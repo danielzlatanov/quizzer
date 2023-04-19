@@ -1,17 +1,18 @@
 import { page, render } from './lib.js';
-import { getUserData } from './util.js';
-import { editorPage } from './views/editor/editor.js';
-import { browsePage } from './views/browse.js';
-import { loginPage, registerPage } from './views/auth.js';
-import { getQuestionsByQuizId, getQuizById, logout } from './api/data.js';
-import { quizPage } from './views/quiz/quiz.js';
 import { cube } from './views/common/loader.js';
-import { resultPage } from './views/quiz/result.js';
+import { getUserData } from './util.js';
+import { getQuestionsByQuizId, getQuizById, logout } from './api/data.js';
 import { homePage } from './views/home.js';
+import { loginPage, registerPage } from './views/auth.js';
+import { editorPage } from './views/editor/editor.js';
 import { detailsPage } from './views/quiz/details.js';
+import { browsePage } from './views/browse.js';
+import { quizPage } from './views/quiz/quiz.js';
+import { resultPage } from './views/quiz/result.js';
+import { profilePage } from './views/profile.js';
 
-import * as api from './api/data.js';
-window.api = api;
+// import * as api from './api/data.js';
+// window.api = api;
 
 const state = {};
 const root = document.getElementById('content');
@@ -20,11 +21,12 @@ document.getElementById('logoutBtn').addEventListener('click', onLogout);
 page(decorateCtx);
 
 page('/', homePage);
-page('/create', editorPage);
-page('/edit/:id', editorPage);
-page('/browse', browsePage);
 page('/login', loginPage);
 page('/register', registerPage);
+page('/create', editorPage);
+page('/browse', browsePage);
+page('/profile', profilePage);
+page('/edit/:id', editorPage);
 page('/quiz/:id', getQuiz, quizPage);
 page('/result/:id', getQuiz, resultPage);
 page('/details/:id', getQuiz, detailsPage);
