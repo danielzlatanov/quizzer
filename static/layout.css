@@ -53,7 +53,6 @@ body {
 	transition: 0.5s;
 }
 
-
 #titlebar nav {
 	position: absolute;
 	height: 64px;
@@ -122,7 +121,6 @@ footer {
 
 .q-pad-med {
 	padding: 25px 36px;
-
 }
 
 .pad-large {
@@ -153,11 +151,14 @@ footer {
 }
 
 .hero {
-	/* background-image: url('/assets/banner.jpg'); */
-	background-image:
-    linear-gradient(to bottom, rgba(2, 8, 38, 0.52), rgba(52, 4, 40, 0.73)),
-    url('/assets/banner.jpg');
+	background-image: linear-gradient(to bottom, rgba(2, 8, 38, 0.52), rgba(52, 4, 40, 0.73)),
+		url('/assets/banner.jpg');
 	padding: 64px;
+}
+
+.hero-prof {
+	background-image: linear-gradient(to bottom, rgba(2, 8, 38, 0.52), rgba(52, 4, 40, 0.73)),
+		url('/assets/banner.jpg');
 }
 
 .splash {

@@ -1,13 +1,14 @@
-import { html } from '../lib.js';
-import { getSolutionsByUserId } from '../api/data.js';
+import { html, until } from '../lib.js';
+import { quizPreviewTemplate } from './common/quizPreview.js';
+import { getQuizById, getSolutionsByUserId } from '../api/data.js';
 import { getUserData } from '../util.js';
 
-const profileTemplate = (user, level) => html`<section id="profile">
+const profileTemplate = (user, level, solved) => html`<section id="profile">
 	<header class="pad-large">
 		<h1>Profile Page</h1>
 	</header>
 
-	<div class="hero pad-large">
+	<div class="hero-prof pad-large">
 		<article class="glass pad-large profile">
 			<h2>Personal Info</h2>
 			<p>
@@ -31,16 +32,8 @@ const profileTemplate = (user, level) => html`<section id="profile">
 			</table> 
 			</p>
 			<h2>Solved Quizzes</h2>
-			<table class="quiz-results">
-				<tbody>
-					<tr class="results-row">
-						<td class="cell-1">23. March 2021</td>
-						<td class="cell-2"><a href="#">RISC Architecture</a></td>
-						<td class="cell-3 s-correct">85%</td>
-						<td class="cell-4 s-correct">12/15 correct answers</td>
-					</tr>
-				</tbody>
-			</table>
+			<!-- <button>Hide</button> -->
+			${solved.map(solvedQuizTemplate)}
 		</article>
 	</div>
 
@@ -68,32 +61,35 @@ const profileTemplate = (user, level) => html`<section id="profile">
 			</div>
 		</article>
 
-		<article class="preview layout">
-			<div class="right-col">
-				<a class="action cta" href="#">View</a>
-				<a class="action cta" href="#"><i class="fas fa-edit"></i></a>
-				<a class="action cta" href="#"><i class="fas fa-trash-alt"></i></a>
-			</div>
-			<div class="left-col">
-				<h3><a class="quiz-title-link" href="#">RISC Architecture</a></h3>
-				<span class="quiz-topic">Topic: Hardware</span>
-				<div class="quiz-meta">
-					<span><span id="descCount">15</span> questions</span>
-					<span>|</span>
-					<span>Solved <span id="descCount">15</span> times</span>
-				</div>
-			</div>
-		</article>
 	</div>
 </section>`;
 
+const solvedQuizTemplate = solved => html`<table class="quiz-results">
+	<tbody>
+		<tr class="results-row">
+			<td class="cell-1">${new Date(solved.createdAt).toLocaleString()}</td>
+			${until(getQuizInfo(solved.quiz.objectId), html`<p>Loading...</p>`)}
+			<td class="cell-3 s-correct">${((solved.correct / solved.total) * 100).toFixed(0)}%</td>
+			<td class="cell-4 s-correct">${solved.correct}/${solved.total} correct answers</td>
+		</tr>
+	</tbody>
+</table>`;
+
+async function getQuizInfo(quizId) {
+	const quiz = await getQuizById(quizId);
+	return html`<td class="cell-2">
+		<a href="/quiz/${quizId}">Title - ${quiz.title}<br />Topic - ${quiz.topic}</a>
+	</td>`;
+}
+
 export async function profilePage(ctx) {
-	ctx.render(profileTemplate(getUserData(), await getLevel()));
-	getLevel();
+	const solved = await getUserSolutions();
+	ctx.render(profileTemplate(getUserData(), await getLevel(), solved));
 }
 
 async function getLevel() {
-	const solutions = await getUserSolutions();
+	const res = await getUserSolutions();
+	const solutions = res.length;
 	if (solutions >= 0 && solutions <= 10) {
 		return html`Newbie &#127774;`;
 	} else if (solutions >= 11 && solutions <= 99) {
@@ -105,7 +101,6 @@ async function getLevel() {
 
 async function getUserSolutions() {
 	const userId = getUserData().id;
-	const res = await getSolutionsByUserId(userId);
-	const solutions = res.length;
-	return solutions;
+	const result = await getSolutionsByUserId(userId);
+	return result;
 }
