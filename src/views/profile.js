@@ -3,7 +3,7 @@ import { quizPreviewTemplate } from './common/quizPreview.js';
 import { getQuizById, getSolutionsByUserId } from '../api/data.js';
 import { getUserData } from '../util.js';
 
-const profileTemplate = (user, level, solved) => html`<section id="profile">
+const profileTemplate = (user, level, solved, showSolved) => html`<section id="profile">
 	<header class="pad-large">
 		<h1>Profile Page</h1>
 	</header>
@@ -31,9 +31,12 @@ const profileTemplate = (user, level, solved) => html`<section id="profile">
 				</tr>
 			</table> 
 			</p>
-			<h2>Solved Quizzes</h2>
-			<!-- <button>Hide</button> -->
+			<h2 id="solved-txt">Solved Quizzes [<span id="descCount">${
+				solved.length
+			}</span>] <a @click=${showSolved} class="action cta showBtn" href="javascript:void(0)">Show</a></h2>
+			<table class="quiz-results" hidden>
 			${solved.map(solvedQuizTemplate)}
+			</table>
 		</article>
 	</div>
 
@@ -64,7 +67,7 @@ const profileTemplate = (user, level, solved) => html`<section id="profile">
 	</div>
 </section>`;
 
-const solvedQuizTemplate = solved => html`<table class="quiz-results">
+const solvedQuizTemplate = solved => html`
 	<tbody>
 		<tr class="results-row">
 			<td class="cell-1">${new Date(solved.createdAt).toLocaleString()}</td>
@@ -73,18 +76,29 @@ const solvedQuizTemplate = solved => html`<table class="quiz-results">
 			<td class="cell-4 s-correct">${solved.correct}/${solved.total} correct answers</td>
 		</tr>
 	</tbody>
-</table>`;
+`;
+
+export async function profilePage(ctx) {
+	const solved = await getUserSolutions();
+	ctx.render(profileTemplate(getUserData(), await getLevel(), solved, showSolved));
+
+	function showSolved(e) {
+		e.preventDefault();
+		if (e.target.textContent == 'Show') {
+			document.querySelector('.quiz-results').style.display = 'table';
+			e.target.textContent = 'Hide';
+		} else {
+			document.querySelector('.quiz-results').style.display = 'none';
+			e.target.textContent = 'Show';
+		}
+	}
+}
 
 async function getQuizInfo(quizId) {
 	const quiz = await getQuizById(quizId);
 	return html`<td class="cell-2">
 		<a href="/quiz/${quizId}">Title - ${quiz.title}<br />Topic - ${quiz.topic}</a>
 	</td>`;
-}
-
-export async function profilePage(ctx) {
-	const solved = await getUserSolutions();
-	ctx.render(profileTemplate(getUserData(), await getLevel(), solved));
 }
 
 async function getLevel() {
