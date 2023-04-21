@@ -54,7 +54,7 @@ const profileTemplate = (
 		<h2>Quizzes created by you</h2>
 	</header>
 
-	<div class="pad-large alt-page gr">
+	<div class="pad-large alt-page gr" id="created-q">
 				${
 					created.length > 0
 						? created.map(c => createdQuizTemplate(c, onDelete))
@@ -73,6 +73,7 @@ const solvedQuizTemplate = solved => html`
 		</tr>
 	</tbody>
 `;
+
 
 const createdQuizTemplate = (quiz, onDelete) => html`<article class="preview layout">
 	<div class="right-col">
@@ -120,7 +121,7 @@ export async function profilePage(ctx) {
 			target = target.parentNode;
 		}
 
-		const confirmed = confirm('Are you sure? This action will delete your solution as well.');
+		const confirmed = confirm('Are you sure you want to delete this quiz?');
 		if (confirmed) {
 			target.remove();
 			if (quizId) {
