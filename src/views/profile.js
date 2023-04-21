@@ -1,9 +1,15 @@
 import { html, until } from '../lib.js';
-import { quizPreviewTemplate } from './common/quizPreview.js';
-import { getQuizById, getSolutionsByUserId } from '../api/data.js';
+import { deleteQuiz, getQuizById, getQuizzes, getSolutionsByUserId } from '../api/data.js';
 import { getUserData } from '../util.js';
 
-const profileTemplate = (user, level, solved, showSolved) => html`<section id="profile">
+const profileTemplate = (
+	user,
+	level,
+	solved,
+	showSolved,
+	created,
+	onDelete
+) => html`<section id="profile">
 	<header class="pad-large">
 		<h1>Profile Page</h1>
 	</header>
@@ -32,10 +38,14 @@ const profileTemplate = (user, level, solved, showSolved) => html`<section id="p
 			</table> 
 			</p>
 			<h2 id="solved-txt">Solved Quizzes [<span id="descCount">${
-				solved.length
+				solved.length || 0
 			}</span>] <a @click=${showSolved} class="action cta showBtn" href="javascript:void(0)">Show</a></h2>
 			<table class="quiz-results" hidden>
-			${solved.map(solvedQuizTemplate)}
+				${
+					solved.length > 0
+						? solved.map(solvedQuizTemplate)
+						: html`<p>You have not solved any quizzes yet.</p>`
+				}
 			</table>
 		</article>
 	</div>
@@ -45,25 +55,11 @@ const profileTemplate = (user, level, solved, showSolved) => html`<section id="p
 	</header>
 
 	<div class="pad-large alt-page gr">
-		<article class="preview layout">
-			<div class="right-col">
-				<a class="action cta" href="#">View</a>
-				<a class="action cta" href="#"><i class="fas fa-edit"></i></a>
-				<a class="action cta" href="#"><i class="fas fa-trash-alt"></i></a>
-			</div>
-			<div class="left-col">
-				<h3>
-					<a class="quiz-title-link" href="#">Extensible Markup Language</a>
-				</h3>
-				<span class="quiz-topic">Topic: Languages</span>
-				<div class="quiz-meta">
-					<span><span id="descCount">15</span> questions</span>
-					<span>|</span>
-					<span>Solved <span id="descCount">15</span> times</span>
-				</div>
-			</div>
-		</article>
-
+				${
+					created.length > 0
+						? created.map(c => createdQuizTemplate(c, onDelete))
+						: html`<p id="no-own-q">You have not created any quizzes yet.</p>`
+				}
 	</div>
 </section>`;
 
@@ -78,9 +74,31 @@ const solvedQuizTemplate = solved => html`
 	</tbody>
 `;
 
+const createdQuizTemplate = (quiz, onDelete) => html`<article class="preview layout">
+	<div class="right-col">
+		<a class="action cta" href="/quiz/${quiz.objectId}">View</a>
+		<a class="action cta" href="/edit/${quiz.objectId}"><i class="fas fa-edit"></i></a>
+		<a @click=${onDelete.bind(null, quiz.objectId)} class="action cta" href="javascript:void(0)"
+			><i class="fas fa-trash-alt"></i
+		></a>
+	</div>
+	<div class="left-col">
+		<h3>
+			<a class="quiz-title-link" href="/quiz/${quiz.objectId}">${quiz.title}</a>
+		</h3>
+		<span class="quiz-topic">Topic: ${quiz.topic}</span>
+		<div class="quiz-meta">
+			<span><span id="descCount">${quiz.questionCount}</span> questions</span>
+			<span>|</span>
+			<span>Solved <span id="descCount">${quiz.taken || 0}</span> times</span>
+		</div>
+	</div>
+</article>`;
+
 export async function profilePage(ctx) {
-	const solved = await getUserSolutions();
-	ctx.render(profileTemplate(getUserData(), await getLevel(), solved, showSolved));
+	const solved = getUserSolutions();
+	const created = await getOwnQuizzes();
+	update();
 
 	function showSolved(e) {
 		e.preventDefault();
@@ -92,6 +110,37 @@ export async function profilePage(ctx) {
 			e.target.textContent = 'Show';
 		}
 	}
+
+	async function onDelete(quizId, e) {
+		e.preventDefault();
+
+		let target = e.target;
+		while (target.tagName != 'ARTICLE') {
+			target = target.parentNode;
+		}
+
+		const confirmed = confirm('Are you sure you want to delete this quiz?');
+		if (confirmed) {
+			if (quizId) {
+				await deleteQuiz(quizId);
+			}
+			target.remove();
+		}
+		update();
+	}
+
+	async function update() {
+		ctx.render(
+			profileTemplate(getUserData(), await getLevel(), solved, showSolved, created, onDelete)
+		);
+	}
+}
+
+async function getOwnQuizzes() {
+	const quizzes = await getQuizzes();
+	const userId = getUserData().id;
+	const created = quizzes.filter(x => x.owner.objectId == userId);
+	return created;
 }
 
 async function getQuizInfo(quizId) {

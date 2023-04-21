@@ -11,8 +11,8 @@ import { quizPage } from './views/quiz/quiz.js';
 import { resultPage } from './views/quiz/result.js';
 import { profilePage } from './views/profile.js';
 
-// import * as api from './api/data.js';
-// window.api = api;
+import * as api from './api/data.js';
+window.api = api;
 
 const state = {};
 const root = document.getElementById('content');

@@ -28,6 +28,11 @@
 	margin-top: 25px;
 }
 
+#no-own-q {
+	color: #ffffff;
+	font-size: 18px;
+}
+
 #levelInfo {
 	padding-top: 15px;
 	font-style: italic;
