@@ -1,9 +1,9 @@
 import { html, until } from '../../lib.js';
-import { topics } from '../../util.js';
+import { getUserData, topics } from '../../util.js';
 import { cube } from '../common/loader.js';
 import { getSolutionCount } from '../../api/data.js';
 
-const detailsTemplate = quiz => html`<section id="details">
+const detailsTemplate = (quiz, user) => html`<section id="details">
 	<div class="pad-large alt-page gr">
 		<article class="details">
 			<h1>${quiz.title}</h1>
@@ -15,7 +15,9 @@ const detailsTemplate = quiz => html`<section id="details">
 			<p class="quiz-desc">${quiz.description}</p>
 
 			<div>
-				<a class="cta action" href="/quiz/${quiz.objectId}">Start</a>
+				${user
+					? html`<a class="cta action" href="/quiz/${quiz.objectId}">Start</a>`
+					: html`<a class="cta action" href="/login">Login to Start</a>`}
 			</div>
 		</article>
 	</div>
@@ -36,5 +38,5 @@ async function loadCount(quiz) {
 }
 
 export function detailsPage(ctx) {
-	ctx.render(detailsTemplate(ctx.quiz));
+	ctx.render(detailsTemplate(ctx.quiz, getUserData()));
 }
