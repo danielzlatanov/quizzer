@@ -122,7 +122,7 @@ export async function quizPage(ctx) {
 				correct++;
 			}
 		}
-		const solution = { correct, total: questions.length };
+		const solution = { correct, total: questions.length, title: ctx.quiz.title };
 
 		ctx.render(cube());
 		await submitSolution(quizId, solution);

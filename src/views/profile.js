@@ -1,5 +1,5 @@
-import { html, until } from '../lib.js';
-import { deleteQuiz, getQuizById, getQuizzes, getSolutionsByUserId } from '../api/data.js';
+import { html } from '../lib.js';
+import { deleteQuiz, getQuizzes, getSolutionsByUserId } from '../api/data.js';
 import { getUserData } from '../util.js';
 
 const profileTemplate = (
@@ -67,7 +67,7 @@ const solvedQuizTemplate = solved => html`
 	<tbody>
 		<tr class="results-row">
 			<td class="cell-1">${new Date(solved.createdAt).toLocaleString()}</td>
-			${until(getQuizInfo(solved.quiz.objectId), html`<p>Loading...</p>`)}
+			<td class="cell-2">${solved.title}</td>
 			<td class="cell-3 s-correct">${((solved.correct / solved.total) * 100).toFixed(0)}%</td>
 			<td class="cell-4 s-correct">${solved.correct}/${solved.total} correct answers</td>
 		</tr>
@@ -96,7 +96,8 @@ const createdQuizTemplate = (quiz, onDelete) => html`<article class="preview lay
 </article>`;
 
 export async function profilePage(ctx) {
-	const solved = getUserSolutions();
+	let solved = await getUserSolutions();
+	solved = solved.filter(x => x.title);
 	const created = await getOwnQuizzes();
 	update();
 
@@ -119,12 +120,12 @@ export async function profilePage(ctx) {
 			target = target.parentNode;
 		}
 
-		const confirmed = confirm('Are you sure you want to delete this quiz?');
+		const confirmed = confirm('Are you sure? This action will delete your solution as well.');
 		if (confirmed) {
+			target.remove();
 			if (quizId) {
 				await deleteQuiz(quizId);
 			}
-			target.remove();
 		}
 		update();
 	}
@@ -143,15 +144,9 @@ async function getOwnQuizzes() {
 	return created;
 }
 
-async function getQuizInfo(quizId) {
-	const quiz = await getQuizById(quizId);
-	return html`<td class="cell-2">
-		<a href="/quiz/${quizId}">Title - ${quiz.title}<br />Topic - ${quiz.topic}</a>
-	</td>`;
-}
-
 async function getLevel() {
-	const res = await getUserSolutions();
+	let res = await getUserSolutions();
+	res = res.filter(x => x.title);
 	const solutions = res.length;
 	if (solutions >= 0 && solutions <= 10) {
 		return html`Newbie &#127774;`;
