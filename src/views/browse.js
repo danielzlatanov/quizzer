@@ -6,14 +6,14 @@ import { quizPreviewTemplate } from './common/quizPreview.js';
 
 const browseTemplate = () => html`<section id="browse">
 	<header class="pad-large">
-		<form class="browse-filter">
+		<!-- <form class="browse-filter">
 			<input class="input" type="text" name="query" />
 			<select class="input" name="topic">
 				<option value="all">All Categories</option>
 				${Object.entries(topics).map(([k, v]) => html`<option value=${k}>${v}</option>`)}
 			</select>
-			<input class="input submit action" type="submit" value="Filter Quizzes" />
-		</form>
+			<input class="input submit action" type="submit" value="Search" />
+		</form> -->
 		<h1>All quizzes</h1>
 	</header>
 	<div class="pad-large alt-page gr">${until(loadQuizzes(), cube())}</div>

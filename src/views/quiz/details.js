@@ -8,7 +8,7 @@ const detailsTemplate = (quiz, user) => html`<section id="details">
 		<article class="details">
 			<h1>${quiz.title}</h1>
 			<span class="quiz-topic"
-				>A quiz by <a href="/users/${quiz.owner.objectId}">${quiz.owner.username}</a> on
+				>A quiz by <span id="descCount">${quiz.owner.username}</span> on
 				"${topics[quiz.topic]}"</span
 			>
 			${until(loadCount(quiz), cube())}

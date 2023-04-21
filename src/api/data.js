@@ -93,7 +93,9 @@ export async function getSolutionsByUserId(userId) {
 	const query = JSON.stringify({
 		owner: createPointer('_User', userId),
 	});
-	const response = await api.get(endpoints.solutionClass + '?where=' + encodeURIComponent(query) + '&order=-createdAt');
+	const response = await api.get(
+		endpoints.solutionClass + '?where=' + encodeURIComponent(query) + '&order=-createdAt'
+	);
 	return response.results;
 }
 
