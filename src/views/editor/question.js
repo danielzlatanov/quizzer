@@ -80,6 +80,11 @@ export function createQuestion(quizId, question, removeQuestion, updateCount, ed
 		const formData = new FormData(element.querySelector('form'));
 		const data = [...formData.entries()];
 
+		const questionText = data[0][1];
+		if (!questionText) {
+			return alert('Please provide your question first.');
+		}
+
 		const answers = data
 			.filter(([k, v]) => k.includes('answer-'))
 			.reduce((a, [k, v]) => {
@@ -87,6 +92,21 @@ export function createQuestion(quizId, question, removeQuestion, updateCount, ed
 				a[index] = v;
 				return a;
 			}, []);
+
+		if (data[2] == undefined || data[3] == undefined) {
+			return alert('You must provide at least 2 answers to your question.');
+		}
+
+		const firstAnswerText = data[2][1];
+		const secondAnswerText = data[3][1];
+
+		if (!firstAnswerText || !secondAnswerText) {
+			return alert('You must provide at least 2 answers to your question.');
+		}
+
+		if (answers.some(a => a == '')) {
+			return alert('Please remove any empty fields first.');
+		}
 
 		const body = {
 			text: formData.get('text'),
@@ -111,7 +131,7 @@ export function createQuestion(quizId, question, removeQuestion, updateCount, ed
 			editorActive = false;
 			update(index);
 		} catch (err) {
-			console.error(err.message);
+			alert(err.message);
 		} finally {
 			loader.remove();
 		}
