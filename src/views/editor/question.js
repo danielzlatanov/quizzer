@@ -108,10 +108,15 @@ export function createQuestion(quizId, question, removeQuestion, updateCount, ed
 			return alert('Please remove any empty fields first.');
 		}
 
+		const uniqueAnswers = [...new Set(answers)];
+		if (uniqueAnswers.length < 2) {
+			return alert('Please remove any duplicate answers, they are not allowed.');
+		}
+
 		const body = {
 			text: formData.get('text'),
 			correctIndex: Number(data.find(([k, v]) => k.includes('question-'))[1]),
-			answers,
+			answers: uniqueAnswers,
 		};
 
 		const loader = createOverlay();
