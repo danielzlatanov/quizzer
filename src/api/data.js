@@ -9,6 +9,7 @@ const endpoints = {
 	quizClass: '/classes/Quiz',
 	questionClass: '/classes/Question',
 	solutionClass: '/classes/Solution',
+	users: '/users',
 };
 
 function createPointer(name, id) {
@@ -128,4 +129,13 @@ export async function getSolutionCount(quizIds) {
 	}, {});
 
 	return result;
+}
+
+//! Users
+export async function getUsers() {
+	return (await api.get(endpoints.users)).results;
+}
+
+export async function getUserById(userId) {
+	return await api.get(endpoints.users + '/' + userId);
 }

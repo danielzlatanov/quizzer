@@ -74,7 +74,6 @@ const solvedQuizTemplate = solved => html`
 	</tbody>
 `;
 
-
 const createdQuizTemplate = (quiz, onDelete) => html`<article class="preview layout">
 	<div class="right-col">
 		<a class="action cta" href="/quiz/${quiz.objectId}">View</a>

@@ -91,6 +91,11 @@ export async function editorPage(ctx) {
 		const title = formData.get('title');
 		const topic = formData.get('topic');
 		const description = formData.get('description');
+
+		if (!title || topic == '0' || !description) {
+			return alert('Please fill in all fields for your quiz!');
+		}
+
 		const data = {
 			title,
 			topic,
