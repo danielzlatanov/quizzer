@@ -21,6 +21,7 @@ document.getElementById('logoutBtn').addEventListener('click', onLogout);
 page(decorateCtx);
 
 page('/', homePage);
+page('/index.html', homePage);
 page('/login', loginPage);
 page('/register', registerPage);
 page('/create', editorPage);
