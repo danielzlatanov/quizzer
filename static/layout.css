@@ -89,6 +89,10 @@ body {
 	transition: 0.5s;
 }
 
+footer {
+	text-align: center;
+}
+
 #footer {
 	width: 100%;
 	height: 64px;
@@ -97,12 +101,10 @@ body {
 	background-color: rgb(35, 70, 118);
 	color: #e9e9e9;
 	font-size: 20px;
-	text-align: center;
 }
 
 #footer .social {
 	font-size: 25px;
-	/* float: right; */
 	padding-left: 10px;
 	color: #e9e9e9;
 }

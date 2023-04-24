@@ -1,6 +1,7 @@
 import { html } from '../lib.js';
 import { deleteQuiz, getQuizzes, getSolutionsByUserId } from '../api/data.js';
 import { getUserData } from '../util.js';
+import { cube } from './common/loader.js';
 
 const profileTemplate = (
 	user,
@@ -96,6 +97,8 @@ const createdQuizTemplate = (quiz, onDelete) => html`<article class="preview lay
 </article>`;
 
 export async function profilePage(ctx) {
+	ctx.render(cube());
+
 	let solved = await getUserSolutions();
 	solved = solved.filter(x => x.title);
 	const created = await getOwnQuizzes();

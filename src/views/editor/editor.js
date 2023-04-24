@@ -1,6 +1,7 @@
 import { editQuiz, createQuiz, getQuestionsByQuizId, getQuizById } from '../../api/data.js';
 import { html, render } from '../../lib.js';
 import { getUserData, topics } from '../../util.js';
+import { cube } from '../common/loader.js';
 import { createList } from './list.js';
 
 const editorTemplate = (quiz, quizEditor, updateCount) => html`<section id="editor">
@@ -66,6 +67,8 @@ function createQuizEditor(quiz, onSave) {
 }
 
 export async function editorPage(ctx) {
+	ctx.render(cube());
+
 	const quizId = ctx.params.id;
 	let quiz = null;
 	let questions = [];
