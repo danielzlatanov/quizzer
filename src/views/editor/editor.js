@@ -2,6 +2,7 @@ import { editQuiz, createQuiz, getQuestionsByQuizId, getQuizById } from '../../a
 import { html, render } from '../../lib.js';
 import { getUserData, topics } from '../../util.js';
 import { cube } from '../common/loader.js';
+import { notify } from '../err.js';
 import { createList } from './list.js';
 
 const editorTemplate = (quiz, quizEditor, updateCount) => html`<section id="editor">
@@ -96,7 +97,7 @@ export async function editorPage(ctx) {
 		const description = formData.get('description');
 
 		if (!title || topic == '0' || !description) {
-			return alert('Please fill in all fields for your quiz!');
+			return notify('Please fill in all fields for your quiz');
 		}
 
 		const data = {
@@ -115,7 +116,7 @@ export async function editorPage(ctx) {
 				ctx.page.redirect('/edit/' + res.objectId);
 			}
 		} catch (err) {
-			alert(err.message);
+			notify(err.message);
 		} finally {
 			updateEditor(false);
 		}

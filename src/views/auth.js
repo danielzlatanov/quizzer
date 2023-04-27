@@ -1,5 +1,6 @@
 import { login, register } from '../api/data.js';
 import { html } from '../lib.js';
+import { notify } from './err.js';
 
 const loginTemplate = onSubmit => html`<section id="login">
 	<div class="pad-large">
@@ -35,7 +36,7 @@ export async function loginPage(ctx) {
 		const password = formData.get('password');
 
 		if (!username || !password) {
-			return alert('All fields are required!');
+			return notify('All fields are required');
 		}
 
 		await login(username, password);
@@ -87,10 +88,10 @@ export async function registerPage(ctx) {
 		const repass = formData.get('repass');
 
 		if (!username || !email || !password) {
-			return alert('All fields are required!');
+			return notify('All fields are required');
 		}
 		if (password != repass) {
-			return alert('Passwords are not the same!');
+			return notify('Passwords are not the same');
 		}
 
 		await register(email, username, password);

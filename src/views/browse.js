@@ -6,6 +6,7 @@ import { quizPreviewTemplate } from './common/quizPreview.js';
 
 const browseTemplate = () => html`<section id="browse">
 	<header class="pad-large">
+		<!-- todo -->
 		<!-- <form class="browse-filter">
 			<input class="input" type="text" name="query" />
 			<select class="input" name="topic">

@@ -1,4 +1,5 @@
 import { clearUserData, setUserData, getUserData } from '../util.js';
+import { notify } from '../views/err.js';
 
 const host = 'https://parseapi.back4app.com';
 
@@ -18,7 +19,7 @@ async function request(url, options) {
 			return res;
 		}
 	} catch (err) {
-		alert(err.message);
+		notify(err.message);
 		throw err;
 	}
 }

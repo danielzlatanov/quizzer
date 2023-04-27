@@ -5,9 +5,10 @@
 @import './animate.css';
 @import './auth.css';
 @import './profile.css';
+@import './notifications.css';
 
 #views {
-    display: none;
+	display: none;
 }
 
 #guest-nav,

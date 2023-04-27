@@ -2,6 +2,7 @@ import { html, render } from '../../lib.js';
 import { createAnswerList } from './answer.js';
 import { createQuestion as apiCreateQ, editQuestion as apiUpdateQ } from '../../api/data.js';
 import { createOverlay } from '../common/loader.js';
+import { notify } from '../err.js';
 
 const editorTemplate = (data, index, onSave, onCancel) => html`<div class="layout">
 		<div class="question-control">
@@ -82,7 +83,7 @@ export function createQuestion(quizId, question, removeQuestion, updateCount, ed
 
 		const questionText = data[0][1];
 		if (!questionText) {
-			return alert('Please provide your question first.');
+			return notify('Please provide your question first');
 		}
 
 		const answers = data
@@ -94,23 +95,23 @@ export function createQuestion(quizId, question, removeQuestion, updateCount, ed
 			}, []);
 
 		if (data[2] == undefined || data[3] == undefined) {
-			return alert('You must provide at least 2 answers to your question.');
+			return notify('You must provide at least 2 answers to your question');
 		}
 
 		const firstAnswerText = data[2][1];
 		const secondAnswerText = data[3][1];
 
 		if (!firstAnswerText || !secondAnswerText) {
-			return alert('You must provide at least 2 answers to your question.');
+			return notify('You must provide at least 2 answers to your question');
 		}
 
 		if (answers.some(a => a == '')) {
-			return alert('Please remove any empty fields first.');
+			return notify('Please remove any empty fields first');
 		}
 
 		const uniqueAnswers = [...new Set(answers)];
 		if (uniqueAnswers.length < 2) {
-			return alert('Please remove any duplicate answers, they are not allowed.');
+			return notify('Please remove any duplicate answers, they are not allowed');
 		}
 
 		const body = {
@@ -136,7 +137,7 @@ export function createQuestion(quizId, question, removeQuestion, updateCount, ed
 			editorActive = false;
 			update(index);
 		} catch (err) {
-			alert(err.message);
+			notify(err.message);
 		} finally {
 			loader.remove();
 		}
