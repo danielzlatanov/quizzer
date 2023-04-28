@@ -30,6 +30,23 @@
 	position: relative;
 }
 
+.popular {
+	width: 20%;
+	top: 50%;
+	left: 50%;
+	transform: translate(100%, -250%);
+}
+
+.popular-title {
+	font-size: 18px;
+}
+
+#popular-header {
+	position: absolute;
+	top:33px;
+	right: 240px;
+}
+
 .question-control {
 	float: right;
 }

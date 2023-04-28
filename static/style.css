@@ -27,17 +27,13 @@ h3 {
 }
 
 a {
-	color: #e1bf00;
+	color: #11c131;
 	text-decoration: none;
 }
 
 a:hover {
 	color: #628900;
 	transition: 0.5s;
-}
-
-.invert {
-	color: #ff8000;
 }
 
 .center {

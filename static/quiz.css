@@ -11,6 +11,19 @@
 	transition: 0.5s;
 }
 
+.popular-preview {
+	background-color: rgb(28 54 81);
+	margin: 32px 0;
+	border: 2px solid #e9e9e9;
+	padding: 16px 32px;
+	position: relative;
+}
+
+.popular-preview:hover {
+	border-color: #11c131;
+	transition: 0.5s;
+}
+
 .quiz-title-link {
 	text-decoration: none;
 }
@@ -72,17 +85,13 @@
 }
 
 #descCount {
-	color: #e1bf00;
+	color: #11c131;
 }
 
 #no-quizzes {
 	font-size: 24px;
 	color: #e9e9e9;
 	padding-top: 20px;
-}
-
-#qCount {
-	color: #e1bf00;
 }
 
 .question {

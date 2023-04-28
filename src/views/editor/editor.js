@@ -1,16 +1,32 @@
-import { editQuiz, createQuiz, getQuestionsByQuizId, getQuizById } from '../../api/data.js';
+import {
+	editQuiz,
+	createQuiz,
+	getQuestionsByQuizId,
+	getQuizById,
+	getQuizzes,
+} from '../../api/data.js';
 import { html, render } from '../../lib.js';
 import { getUserData, topics } from '../../util.js';
 import { cube } from '../common/loader.js';
 import { notify } from '../err.js';
 import { createList } from './list.js';
+import { popularTemplate } from './popular.js';
 
-const editorTemplate = (quiz, quizEditor, updateCount) => html`<section id="editor">
+const editorTemplate = (quiz, quizEditor, updateCount, popular, isNewQuiz) => html`<section
+	id="editor">
 	<header class="pad-large">
 		<h1>${quiz ? 'Edit Your Quiz' : 'New Quiz'}</h1>
+		${isNewQuiz ? html`<h2 id="popular-header">Most popular quizzes</h2>` : ''}
 	</header>
 
 	${quizEditor} ${quiz ? createList(quiz.objectId, quiz.questions, updateCount) : ''}
+	${isNewQuiz
+		? html`<div id="popular-quizzes">
+				${popular
+					? popular.map(popularTemplate)
+					: "Currently, there aren't enough popular quizzes to display."}
+		  </div>`
+		: ''}
 </section>`;
 
 const quizEditor = (quiz, onSave, animation) => html`<form @submit=${onSave}>
@@ -67,6 +83,24 @@ function createQuizEditor(quiz, onSave) {
 	}
 }
 
+async function getPopularQuizzes() {
+	const res = await getQuizzes();
+
+	const sortedResult = res.sort((a, b) => {
+		if (a.taken == undefined) {
+			a.taken = 0;
+		}
+
+		if (b.taken == undefined) {
+			b.taken = 0;
+		}
+		return b.taken - a.taken;
+	});
+
+	return sortedResult.slice(0, 3);
+	// return []
+}
+
 export async function editorPage(ctx) {
 	ctx.render(cube());
 
@@ -82,7 +116,15 @@ export async function editorPage(ctx) {
 	}
 
 	const { editor, updateEditor } = createQuizEditor(quiz, onSave);
-	ctx.render(editorTemplate(quiz, editor, updateCount));
+	ctx.render(
+		editorTemplate(
+			quiz,
+			editor,
+			updateCount,
+			await getPopularQuizzes(),
+			ctx.path.includes('create')
+		)
+	);
 
 	async function updateCount(change = 0) {
 		const count = questions.length + change;

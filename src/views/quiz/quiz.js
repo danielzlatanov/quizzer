@@ -30,7 +30,7 @@ const quizTemplate = (
 
 			<nav class="q-control">
 				<span class="block q-remaining"
-					><span id="qCount">${answers.filter(a => a == undefined).length}</span>
+					><span id="descCount">${answers.filter(a => a == undefined).length}</span>
 					questions remaining</span
 				>
 				${currentIndex > 0
