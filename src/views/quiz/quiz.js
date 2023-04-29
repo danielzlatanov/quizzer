@@ -14,7 +14,6 @@ const quizTemplate = (
 	<header class="pad-large">
 		<h1>${quiz.title} - Question ${currentIndex + 1} / ${questions.length}</h1>
 		<nav class="layout q-control">
-			<span class="block q-dec">Questions:</span>
 			${questions.map((q, i) =>
 				indexTemplate(quiz.objectId, i, i == currentIndex, answers[i] !== undefined)
 			)}

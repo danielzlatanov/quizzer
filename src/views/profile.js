@@ -77,7 +77,7 @@ const solvedQuizTemplate = solved => html`
 
 const createdQuizTemplate = (quiz, onDelete) => html`<article class="preview layout">
 	<div class="right-col">
-		<a class="action cta" href="/quiz/${quiz.objectId}">View</a>
+		<a class="action cta" href="/quiz/${quiz.objectId}">Solve</a>
 		<a class="action cta" href="/edit/${quiz.objectId}"><i class="fas fa-edit"></i></a>
 		<a @click=${onDelete.bind(null, quiz.objectId)} class="action cta" href="javascript:void(0)"
 			><i class="fas fa-trash-alt"></i

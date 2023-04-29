@@ -1,6 +1,7 @@
 .editor-label {
 	display: block;
 	margin: 8px 0;
+	font-size: 20px;
 }
 
 .label-col {
@@ -43,7 +44,7 @@
 
 #popular-header {
 	position: absolute;
-	top:33px;
+	top: 33px;
 	right: 240px;
 }
 
