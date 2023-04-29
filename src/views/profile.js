@@ -39,7 +39,7 @@ const profileTemplate = (
 			</table> 
 			</p>
 			<h2 id="solved-txt">Solved Quizzes [<span id="descCount">${
-				solved.length || 0
+				solved.length < 100 ? solved.length : '100+'
 			}</span>] <a @click=${showSolved} class="action cta showBtn" href="javascript:void(0)">Show</a></h2>
 			<table class="quiz-results" hidden>
 				${
