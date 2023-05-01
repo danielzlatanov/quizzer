@@ -27,7 +27,6 @@ body {
 #titlebar {
 	margin: 0 auto;
 	height: 64px;
-	/* background-image: url('/assets/header.jpg'); */
 	position: relative;
 }
 

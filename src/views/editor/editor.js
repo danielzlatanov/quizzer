@@ -22,9 +22,9 @@ const editorTemplate = (quiz, quizEditor, updateCount, popular, isNewQuiz) => ht
 	${quizEditor} ${quiz ? createList(quiz.objectId, quiz.questions, updateCount) : ''}
 	${isNewQuiz
 		? html`<div id="popular-quizzes">
-				${popular
+				${popular.length > 0
 					? popular.map(popularTemplate)
-					: "Currently, there aren't enough popular quizzes to display."}
+					: html`<p id="no-pop">Currently, there aren't enough popular quizzes to display.</p>`}
 		  </div>`
 		: ''}
 </section>`;
@@ -98,7 +98,6 @@ async function getPopularQuizzes() {
 	});
 
 	return sortedResult.slice(0, 3);
-	// return []
 }
 
 export async function editorPage(ctx) {
