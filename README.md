@@ -5,14 +5,14 @@ Quizzer is a single-page application - a system for creating, managing, and fill
 * User registration
 * Ability to view and solve quizzes created by other users
 * Various topics related to quizzes
-* Keeping statistics for each user/quiz/solution
+* Keeping statistics for each user/quiz/question/solution
 * Interactive quiz editor
-* Good UX
+* Pleasant UX
 
 ## Technologies
 * HTML, CSS, Javascript
-* lit-html, page.js
-* GitHub Pages, Back4app
+* lit-html, page.js - *(libraries)*
+* GitHub Pages, Back4app *(BaaS platform)*
 
 ## Views
 * **Welcome/Home page** - initial screen, info about total quizzes and topics, the most recent quiz is shown
@@ -21,7 +21,7 @@ Quizzer is a single-page application - a system for creating, managing, and fill
 * **Quiz Details page** - additional description, quiz statistics, author information and start the quiz button
 * **Quiz Contest mode** - answering questions, each question is in a separate view, the ability to move freely from question to question, answers are kept throughout, can restart the quiz, submit answers button appears either on the last question or when the quiz is filled out entirely *(checks and warns about unfilled questions)*
 * **Quiz Results page** - results summary, ability to review wrong questions and see correct answers
-* **Profile page** - information about user's created quizzes and his solutions *(date, title, score)*
+* **Profile page** - information about user's created quizzes and his solutions *(date, quiz title, score)*
 * **Create page** - the ability to create a new quiz prior to the editor, top 3 most popular quizzes are shown *(sorted by solutions count)*
 * **Quiz Editor** - integrated editor for quizzes, questions, and answers with proper validation
 
@@ -36,15 +36,15 @@ Quizzer is a single-page application - a system for creating, managing, and fill
 * Roles *(private)*
 ```javascript
 {
-name: String,
-users: Relation<User>,
-roles: Relation<Role>
+     name: String,
+     users: Relation<User>,
+     roles: Relation<Role>
 }
 ```
 * Sessions *(private)*
 ```javascript
 {
-user: Pointer<User>
+     user: Pointer<User>
 }
 ```
 * Users *(private)*
@@ -85,3 +85,5 @@ user: Pointer<User>
      owner: Pointer<User>
 }
 ```
+### Basic app flowchart
+![quizzer-spa(1)(1)](https://github.com/danielzlatanov/quizzer-spa/assets/110429874/226877e5-412c-4fdb-b6b6-07c83a5b0b0a)
