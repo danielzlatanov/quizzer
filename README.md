@@ -12,7 +12,7 @@ Quizzer is a single-page application - a system for creating, managing, and fill
 ## Technologies
 * HTML, CSS, Javascript
 * lit-html, page.js - *(libraries)*
-* GitHub Pages, Back4app *(BaaS platform)*
+* Netlify *(deployment platform)*, Back4app *(BaaS platform)*
 
 ## Views
 * **Welcome/Home page** - initial screen, info about total quizzes and topics, the most recent quiz is shown
@@ -87,3 +87,5 @@ Quizzer is a single-page application - a system for creating, managing, and fill
 ```
 ### Basic app flowchart
 ![quizzer-spa(1)(1)](https://github.com/danielzlatanov/quizzer-spa/assets/110429874/226877e5-412c-4fdb-b6b6-07c83a5b0b0a)
+
+## Access the app [here](quizzer-spa.netlify.app)
