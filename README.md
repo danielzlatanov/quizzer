@@ -88,4 +88,5 @@ Quizzer is a single-page application - a system for creating, managing, and fill
 ### Basic app flowchart
 ![quizzer-spa(1)(1)](https://github.com/danielzlatanov/quizzer-spa/assets/110429874/226877e5-412c-4fdb-b6b6-07c83a5b0b0a)
 
-## Access the app [here](quizzer-spa.netlify.app)
+## Access the app [here](https://quizzer-spa.netlify.app/)
+<img width="1424" alt="quizzer-preview" src="https://github.com/danielzlatanov/quizzer-spa/assets/110429874/64d5f81e-74a0-4e69-91f3-c647bf4d2e5b">
