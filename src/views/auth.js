@@ -19,7 +19,7 @@ const loginTemplate = onSubmit => html`<section id="login">
 				<input class="block action cta" type="submit" value="Sign In" />
 			</form>
 			<footer class="tab-footer">
-				Don't have an account?
+				No account?
 				<a class="invert" href="/register">Sign Up</a>
 			</footer>
 		</div>
@@ -56,9 +56,7 @@ const registerTemplate = onSubmit => html`<section id="register">
 				<label class="block centered mrg"
 					>username <input class="auth-input input" type="text" name="username"
 				/></label>
-				<label class="block centered"
-					>email <input class="auth-input input" type="text" name="email"
-				/></label>
+				<label class="block centered">email <input class="auth-input input" type="text" name="email" /></label>
 				<label class="block centered"
 					>password <input class="auth-input input" type="password" name="password"
 				/></label>
@@ -68,7 +66,7 @@ const registerTemplate = onSubmit => html`<section id="register">
 				<input class="block action cta" type="submit" value="Create Account" />
 			</form>
 			<footer class="tab-footer">
-				Already have an account?
+				Already registered?
 				<a class="invert" href="/login">Sign In</a>
 			</footer>
 		</div>
