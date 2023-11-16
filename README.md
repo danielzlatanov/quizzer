@@ -1,6 +1,15 @@
 # Quizzer
 Quizzer is a single-page application - a system for creating, managing, and filling out quizzes.
 
+## Getting started
+
+**You can access the deployed application by clicking here: [Quizzer](https://quizzer-spa.netlify.app/)**
+
+_If you wish to run Quizzer **locally**:_
+
+- No need to install any dependencies! All libraries are imported from CDN.
+- Simply open the **root** of the project and start `index.html` using a server of your choice.
+
 ## Functionality
 * User registration
 * Ability to view and solve quizzes created by other users
